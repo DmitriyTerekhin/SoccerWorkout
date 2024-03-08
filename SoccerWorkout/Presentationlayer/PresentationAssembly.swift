@@ -13,12 +13,14 @@ protocol IPresentationAssembly {
     func homeScreen() -> HomeViewController
     func settingsScreen() -> SettingsViewController
     func tabBarViewController() -> CustomTabBarController
-    func chooseSkillScreen() -> ChooseSkillViewController 
+    func chooseSkillScreen(userId: String) -> ChooseSkillViewController
     func changeRootViewController(on viewController: UIViewController)
     func getStartScreen() -> UIViewController
     func webViewController(site: String, title: String?) -> WebViewViewController
-    func workoutDetailScreen() -> ConfigureWorkoutViewController
-    func playWorkoutScreen() -> PlayWorkoutViewController
+    func workoutDetailScreen(workout: WorkoutDTO,
+                             delegate: WorkoutDetailDelegate?) -> ConfigureWorkoutViewController
+    func playWorkoutScreen(workoutDTO: WorkoutDTO) -> PlayWorkoutViewController
+    func chooseGoalScreen(viewState: ChooseGoalViewState) -> ChooseGoalLevelViewController
 }
 
 class PresentationAssembly: IPresentationAssembly {
@@ -32,32 +34,55 @@ class PresentationAssembly: IPresentationAssembly {
                                    userInfoService: serviceAssembly.userInfoService)
     }
     
-    func chooseSkillScreen() -> ChooseSkillViewController {
-        return ChooseSkillViewController(presentationAssembly: self)
+    func chooseSkillScreen(userId: String) -> ChooseSkillViewController {
+        return ChooseSkillViewController(
+            presentationAssembly: self,
+            presenter: SkillRegistrationPresenter(userId: userId,
+                                                  networkService: serviceAssembly.networkService,
+                                                  userInfoService: serviceAssembly.userInfoService,
+                                                  databaseService: serviceAssembly.databaseService
+                                                 ))
     }
     
     func workoutScreen() -> WorkoutViewController {
-        WorkoutViewController(presenter: WorkoutPresenter(networkService: serviceAssembly.networkService))
-//        WorkoutViewController(presenter: WorkoutPresenter(databaseService: serviceAssembly.databaseService))
+        WorkoutViewController(
+            presenter: WorkoutPresenter(networkService: serviceAssembly.networkService,
+                                        userInfoService: serviceAssembly.userInfoService,
+                                        databaseService: serviceAssembly.databaseService
+                                       ))
     }
     
-    func playWorkoutScreen() -> PlayWorkoutViewController {
-        return PlayWorkoutViewController(presenter: PlayWorkoutPresenter(),
+    func playWorkoutScreen(workoutDTO: WorkoutDTO) -> PlayWorkoutViewController {
+        return PlayWorkoutViewController(presenter: PlayWorkoutPresenter(
+            infoService: serviceAssembly.userInfoService,
+            databaseService: serviceAssembly.databaseService,
+            networkService: serviceAssembly.networkService,
+            workout: workoutDTO),
                                          presentationAssemly: self)
     }
     
     func homeScreen() -> HomeViewController {
-        HomeViewController(presenter: HomePresenter(networkService: serviceAssembly.networkService), presentationAssembly: self)
-//        return ProfileViewController(presenter: ProfilePresenter(
-//            networkService: serviceAssembly.networkService,
-//            userInfoService: serviceAssembly.userInfoService,
-//            presentationAssembly: self,
-//            databaseService: serviceAssembly.databaseService),
-//                                     presentationAssembly: self)
+        HomeViewController(presenter: HomePresenter(networkService: serviceAssembly.networkService,
+                                                    userInfoService: serviceAssembly.userInfoService,
+                                                    databaseService: serviceAssembly.databaseService, notificationService: serviceAssembly.notificationService
+                                                   ),
+                           presentationAssembly: self)
     }
     
     func settingsScreen() -> SettingsViewController {
-        return SettingsViewController(presenter: SettingsPresenter())
+        return SettingsViewController(presenter: SettingsPresenter(
+            userInfoService: serviceAssembly.userInfoService,
+            networkService: serviceAssembly.networkService,
+            databaseService: serviceAssembly.databaseService
+        ),
+                                      presentationAssembly: self
+        )
+    }
+    
+    func chooseGoalScreen(viewState: ChooseGoalViewState) -> ChooseGoalLevelViewController {
+        return ChooseGoalLevelViewController(viewState: viewState,
+                                             presenter: ChooseGoalPresenter(),
+                                             presentationAssembly: self)
     }
     
     private let serviceAssembly: IServiceAssembly
@@ -73,7 +98,7 @@ class PresentationAssembly: IPresentationAssembly {
     func getStartScreen() -> UIViewController {
         guard
             serviceAssembly.userInfoService.isUserInApp(),
-            serviceAssembly.userInfoService.getAppleToken() != nil
+            !serviceAssembly.userInfoService.userId.isEmpty
         else {
             return enterScreen()
         }
@@ -81,8 +106,13 @@ class PresentationAssembly: IPresentationAssembly {
         return tabBarViewController()
     }
     
-    func workoutDetailScreen() -> ConfigureWorkoutViewController {
-        return ConfigureWorkoutViewController(presenter: ConfigureWorkoutPresenter())
+    func workoutDetailScreen(workout: WorkoutDTO,
+                             delegate: WorkoutDetailDelegate?) -> ConfigureWorkoutViewController {
+        return ConfigureWorkoutViewController(presenter: ConfigureWorkoutPresenter(workout: workout,
+                                                                                   infoService: serviceAssembly.userInfoService,
+                                                                                   databaseService: serviceAssembly.databaseService, notificationService: serviceAssembly.notificationService,
+                                                                                   delegate: delegate
+                                                                                  ))
     }
     
     func changeRootViewController(on viewController: UIViewController) {

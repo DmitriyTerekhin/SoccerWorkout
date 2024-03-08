@@ -16,8 +16,8 @@ target 'SoccerWorkout' do
   pod 'InputMask'
   pod 'NVActivityIndicatorView'
   pod 'Firebase/Messaging'
-  pod 'FirebaseFirestoreSwift', '8.1.0-beta'
-
+  pod 'FirebaseAnalytics'
+  
   target 'SoccerWorkoutTests' do
     inherit! :search_paths
     # Pods for testing

@@ -7,10 +7,11 @@
 
 import UIKit
 
-class CustomButton: UIButton {
+class CustomButton: LoaderButton {
     
     private let gradientLayer = CAGradientLayer()
     private var isActive: Bool = false
+    private var isButtonEnable: Bool = true
     private let inActiveColors = [
         UIColor(netHex: 0x141414).cgColor,
         UIColor(netHex: 0x181717).cgColor
@@ -27,6 +28,17 @@ class CustomButton: UIButton {
         }
     }
     
+    func changeGradientButtonState(isActive: Bool) {
+        isUserInteractionEnabled = isActive
+        isButtonEnable = isActive
+        if isActive {
+            changeActiveStatus(isActive: isActive)
+        } else {
+            backgroundColor = .clear
+            gradientLayer.colors = activeColors.map({ UIColor(cgColor: $0).withAlphaComponent(0.2).cgColor})
+        }
+    }
+    
     func changeActiveStatus(isActive: Bool) {
         self.isActive = isActive
         if isActive {
@@ -39,7 +51,12 @@ class CustomButton: UIButton {
     // Для не активной кнопки нужен другой локейшн
     func setGradientBackground() {
         gradientLayer.removeFromSuperlayer()
-        gradientLayer.colors = isActive ? activeColors : inActiveColors
+        var colors = isActive ? activeColors : inActiveColors
+        if !isButtonEnable {
+            colors = colors.map({ UIColor(cgColor: $0).withAlphaComponent(0.2).cgColor})
+            backgroundColor = .clear
+        }
+        gradientLayer.colors = colors
         gradientLayer.locations = [0.0, 0.5]
         if isActive {
             gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)

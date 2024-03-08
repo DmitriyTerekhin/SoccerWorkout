@@ -9,8 +9,9 @@ import Foundation
 
 protocol IServiceAssembly {
     var networkService: INetworkService { get }
-//    var databaseService: IDatabaseService { get }
+    var databaseService: IDatabaseService { get }
     var userInfoService: ISensentiveInfoService { get }
+    var notificationService: INotificationService { get }
 }
 
 class ServiceAssembly: IServiceAssembly {
@@ -20,9 +21,10 @@ class ServiceAssembly: IServiceAssembly {
     init(coreAssembly: ICoreAssembly) {
         self.coreAssembly = coreAssembly
     }
+    lazy var notificationService: INotificationService = NotificationService(databaseService: databaseService)
     lazy var networkService: INetworkService = NetworkService(requestSender: coreAssembly.requestSender)
-//    lazy var databaseService: IDatabaseService = DatabaseService(db: coreAssembly.storage,
-//                                                                 coreDataStack: CoreDataStack.shared)
+    lazy var databaseService: IDatabaseService = DatabaseService(db: coreAssembly.storage,
+                                                                 coreDataStack: CoreDataStack.shared)
     lazy var userInfoService: ISensentiveInfoService = AppInfoService(secureStorage: coreAssembly.secureStorage,
                                                                           userInfoStorage: coreAssembly.appSettings)
 }

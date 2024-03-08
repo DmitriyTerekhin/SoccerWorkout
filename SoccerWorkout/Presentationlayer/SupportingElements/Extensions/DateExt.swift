@@ -8,6 +8,12 @@ import UIKit
 
 extension Date {
     
+    func toString(_ withFormat: String.DateFormats) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = withFormat.format
+        return dateFormatter.string(from: self)
+    }
+    
     func toString(_ withFormat: String = "dd.MM.yyyy") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = withFormat

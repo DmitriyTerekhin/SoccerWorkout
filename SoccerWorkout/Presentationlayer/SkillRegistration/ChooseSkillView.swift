@@ -9,7 +9,7 @@ import UIKit
 
 class ChooseSkillView: UIView {
     
-    private enum Constants {
+    enum Constants {
         static let yourLevel = "Your level of training"
         static let beginner = "Beginner"
         static let champion = "Champion"
@@ -25,7 +25,7 @@ class ChooseSkillView: UIView {
         return sv
     }()
     
-    private let buttonsStackView: UIStackView = {
+    let buttonsStackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.spacing = 8
@@ -60,7 +60,7 @@ class ChooseSkillView: UIView {
         return sv
     }()
     
-    private let skillImageView: UIImageView = {
+    let skillImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "Beginner")
         return iv
@@ -84,7 +84,7 @@ class ChooseSkillView: UIView {
         return iv
     }()
     
-    private let yourlevellabel: UILabel = {
+    let yourlevelLabel: UILabel = {
         let lbl = UILabel()
         lbl.setFont(fontName: .PoppinsMedium, sizeXS: 18)
         lbl.textColor = .AppCollors.defaultGray
@@ -92,7 +92,7 @@ class ChooseSkillView: UIView {
         return lbl
     }()
     
-    private let beginnerButton: CustomButton = {
+    let firstSkillButton: CustomButton = {
         let btn = CustomButton(type: .system)
         btn.setTitle(Constants.beginner, for: .normal)
         btn.setTitleColor(.white, for: .normal)
@@ -100,7 +100,7 @@ class ChooseSkillView: UIView {
         return btn
     }()
     
-    private let championButton: CustomButton = {
+    let secondSkillButton: CustomButton = {
         let btn = CustomButton(type: .system)
         btn.setTitle(Constants.champion, for: .normal)
         btn.setTitleColor(.white, for: .normal)
@@ -109,7 +109,7 @@ class ChooseSkillView: UIView {
         return btn
     }()
     
-    private let expertButton: CustomButton = {
+    let thirdSkillButton: CustomButton = {
         let btn = CustomButton(type: .system)
         btn.setTitle(Constants.expert, for: .normal)
         btn.setTitleColor(.white, for: .normal)
@@ -117,7 +117,7 @@ class ChooseSkillView: UIView {
         return btn
     }()
     
-    private let descriptionlabel: UILabel = {
+    let descriptionlabel: UILabel = {
         let lbl = UILabel()
         lbl.text = Constants.description
         lbl.textColor = .white
@@ -155,6 +155,7 @@ class ChooseSkillView: UIView {
         btn.setTitle("Continue", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.changeActiveStatus(isActive: true)
+        btn.changeGradientButtonState(isActive: false)
         return btn
     }()
     
@@ -172,36 +173,40 @@ class ChooseSkillView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func skillTapped(skill: Skill) {
+    func skillTapped(skill: Skill, points: Int) {
+        skillImageView.image = UIImage(named: skill.imageName)
+        statusView.setupUserSkill(skill: skill, points: points)
         switch skill {
         case .beginner:
-            skillImageView.image = UIImage(named: "Beginner")
-            beginnerButton.backgroundColor = .AppCollors.orange
-            championButton.backgroundColor = .clear
-            expertButton.backgroundColor = .clear
+            firstSkillButton.changeActiveStatus(isActive: true)
+            secondSkillButton.changeActiveStatus(isActive: false)
+            thirdSkillButton.changeActiveStatus(isActive: false)
         case .champion:
-            skillImageView.image = UIImage(named: "Champion")
-            beginnerButton.backgroundColor = .clear
-            championButton.backgroundColor = .AppCollors.orange
-            expertButton.backgroundColor = .clear
+            firstSkillButton.changeActiveStatus(isActive: false)
+            secondSkillButton.changeActiveStatus(isActive: true)
+            thirdSkillButton.changeActiveStatus(isActive: false)
         case .expert:
-            skillImageView.image = UIImage(named: "Expert")
-            beginnerButton.backgroundColor = .clear
-            championButton.backgroundColor = .clear
-            expertButton.backgroundColor = .AppCollors.orange
+            firstSkillButton.changeActiveStatus(isActive: false)
+            secondSkillButton.changeActiveStatus(isActive: false)
+            thirdSkillButton.changeActiveStatus(isActive: true)
+        case .expertPlus:
+            firstSkillButton.changeActiveStatus(isActive: false)
+            secondSkillButton.changeActiveStatus(isActive: false)
+            thirdSkillButton.changeActiveStatus(isActive: false)
         }
     }
     
-    private func setupDelegates() {
-        beginnerButton.addTarget(nil, action: #selector(ChooseSkillViewController.beginnerTapped), for: .touchUpInside)
-        championButton.addTarget(nil, action: #selector(ChooseSkillViewController.championTapped), for: .touchUpInside)
-        expertButton.addTarget(nil, action: #selector(ChooseSkillViewController.expertTapped), for: .touchUpInside)
+    func setupDelegates() {
+        firstSkillButton.addTarget(nil, action: #selector(ChooseSkillViewController.beginnerTapped), for: .touchUpInside)
+        secondSkillButton.addTarget(nil, action: #selector(ChooseSkillViewController.championTapped), for: .touchUpInside)
+        thirdSkillButton.addTarget(nil, action: #selector(ChooseSkillViewController.expertTapped), for: .touchUpInside)
         continueButton.addTarget(nil, action: #selector(ChooseSkillViewController.continueTapped), for: .touchUpInside)
     }
     
     func setupView() {
         setupDelegates()
         backgroundColor = .AppCollors.background
+        continueButton.changeDisablingState(isActive: false)
         
         addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -220,28 +225,28 @@ class ChooseSkillView: UIView {
         skillImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
         skillImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
 
-        mainStackView.addArrangedSubview(yourlevellabel)
-        yourlevellabel.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.addArrangedSubview(yourlevelLabel)
+        yourlevelLabel.translatesAutoresizingMaskIntoConstraints = false
         
         mainStackView.addArrangedSubview(buttonsStackView)
         buttonsStackView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         
         let buttonWidth = (UIScreen.main.bounds.width - 16*2 - 8*2)/3
-        buttonsStackView.addArrangedSubview(beginnerButton)
-        beginnerButton.translatesAutoresizingMaskIntoConstraints = false
-        beginnerButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        beginnerButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        buttonsStackView.addArrangedSubview(firstSkillButton)
+        firstSkillButton.translatesAutoresizingMaskIntoConstraints = false
+        firstSkillButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        firstSkillButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
-        buttonsStackView.addArrangedSubview(championButton)
-        championButton.translatesAutoresizingMaskIntoConstraints = false
-        championButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        championButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        buttonsStackView.addArrangedSubview(secondSkillButton)
+        secondSkillButton.translatesAutoresizingMaskIntoConstraints = false
+        secondSkillButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        secondSkillButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
 
-        buttonsStackView.addArrangedSubview(expertButton)
-        expertButton.translatesAutoresizingMaskIntoConstraints = false
-        expertButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        expertButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        buttonsStackView.addArrangedSubview(thirdSkillButton)
+        thirdSkillButton.translatesAutoresizingMaskIntoConstraints = false
+        thirdSkillButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        thirdSkillButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         mainStackView.addArrangedSubview(descriptionlabel)
         descriptionlabel.translatesAutoresizingMaskIntoConstraints = false

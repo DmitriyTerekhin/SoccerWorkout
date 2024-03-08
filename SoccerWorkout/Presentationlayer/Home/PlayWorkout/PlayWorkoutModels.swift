@@ -22,24 +22,24 @@ enum FinishedResultstTypes {
         switch self {
         case .excerciseName(let title):
             return title
-        case .totalNumber(let title, let value):
+        case .totalNumber(let title, _):
             return title
-        case .totalTrainingTime(let title, let value):
+        case .totalTrainingTime(let title, _):
             return title
-        case .pointEarned(let title, let value):
+        case .pointEarned(let title, _):
             return title
         }
     }
     
     var value: NSAttributedString? {
         switch self {
-        case .excerciseName(let title):
+        case .excerciseName(_):
             return nil
-        case .totalNumber(let title, let value):
+        case .totalNumber(_, let value):
             return value
-        case .totalTrainingTime(let title, let value):
+        case .totalTrainingTime(_, let value):
             return value
-        case .pointEarned(let title, let value):
+        case .pointEarned(_, let value):
             return value
         }
     }

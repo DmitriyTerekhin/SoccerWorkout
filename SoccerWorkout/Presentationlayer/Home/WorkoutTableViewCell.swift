@@ -8,12 +8,12 @@
 import UIKit
 
 protocol WorkoutTableViewCellDelegate: AnyObject {
-    func editButtonTapped()
+    func editButtonTapped(id: Int)
 }
 
 class WorkoutTableViewCell: UITableViewCell {
    
-    private let contentBackgroundView: GradientView = {
+    let contentBackgroundView: GradientView = {
         let view = GradientView(cornerRadius: 20,
                                 colors: [
                                   UIColor(netHex: 0x211F1F).cgColor,
@@ -42,15 +42,22 @@ class WorkoutTableViewCell: UITableViewCell {
         iv.image = UIImage(named: "GrayCircle")
         return iv
     }()
-    private let topTitleLabel = UILabel()
-    private let bottomDescriptionLabel = UILabel()
-    private let editButton: UIButton = {
+    let topTitleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.minimumScaleFactor = 0.5
+        lbl.numberOfLines = 1
+        lbl.adjustsFontSizeToFitWidth = true
+        return lbl
+    }()
+    let bottomDescriptionLabel = UILabel()
+    let editButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Edit", for: .normal)
         btn.setTitleColor(.AppCollors.defaultGray, for: .normal)
         btn.titleLabel?.setFont(fontName: .PoppinsRegular, sizeXS: 14)
         return btn
     }()
+    var id: Int?
     weak var delegate: WorkoutTableViewCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -63,16 +70,18 @@ class WorkoutTableViewCell: UITableViewCell {
     }
     
     func configureView(model: HomeViewModel) {
+        id = model.id
         topTitleLabel.attributedText = model.title
         bottomDescriptionLabel.attributedText = model.subtitle
     }
     
     @objc
     func editButtonTapped() {
-        delegate?.editButtonTapped()
+        guard let id = id else { return }
+        delegate?.editButtonTapped(id: id)
     }
     
-    private func setupView() {
+    func setupView() {
         backgroundColor = .clear
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         

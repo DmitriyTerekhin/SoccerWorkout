@@ -29,7 +29,7 @@ class PlayWorkoutBottomView: GradientView {
         let lbl = UILabel()
         lbl.setFont(fontName: .PoppinsMedium, sizeXS: 14)
         lbl.textColor = .white
-        lbl.text = "# 2"
+        lbl.text = "# 1"
         lbl.textAlignment = .center
         return lbl
     }()

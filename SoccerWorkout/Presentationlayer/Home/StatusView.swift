@@ -27,7 +27,7 @@ class StatusView: UIView {
         lbl.textColor = .white
         lbl.setFont(fontName: .PoppinsMedium, sizeXS: 16)
         lbl.layer.zPosition = 10
-        lbl.text = "23"
+        lbl.text = "0"
         return lbl
     }()
 
@@ -52,6 +52,11 @@ class StatusView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupUserSkill(skill: Skill, points: Int) {
+        skillImageView.image = UIImage(named: skill.imageName)
+        numberLabel.text = "\(points)"
     }
     
     func setupView() {

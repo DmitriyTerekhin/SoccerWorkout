@@ -15,7 +15,7 @@ class EnterCollectionViewCell: UICollectionViewCell, ReusableView {
         static let signTitle = "Sign up now"
         static let signSubtitle = "\nStart training right now by connecting your Apple Account in one click"
         static let termsWords = "Terms"
-        static let privacyWords = "Privacy"
+        static let privacyWords = "Privacy Policy"
         static let signUpTitleButton = "Sign up"
         static let notifyButtonTitle = "Notifying me"
         static let notNotifyTitle = "Set up later"
@@ -35,22 +35,22 @@ class EnterCollectionViewCell: UICollectionViewCell, ReusableView {
         return lbl
     }()
     
-    private let termsAndPrivacyPolicy: InteractiveLinkLabel = {
+    private let termsAndPrivacyPolicyLinkLabel: InteractiveLinkLabel = {
         let lbl = InteractiveLinkLabel()
         lbl.numberOfLines = 0
-        lbl.setFont(fontName: .PoppinsRegular, sizeXS: 18)
+        lbl.setFont(fontName: .PoppinsRegular, sizeXS: 16)
         lbl.lineBreakMode = .byWordWrapping
         lbl.textAlignment = .center
         lbl.isHidden = true
         lbl.isUserInteractionEnabled = true
         lbl.addText(text: Constants.termsAndPrivacy,
                     wordsAndSiteToGo: [
-                        Constants.termsWords: "\(ApiConstants.URL.privacyBase)/end-user-licence-agreement.html",
-                        Constants.privacyWords: "\(ApiConstants.URL.privacyBase)/privacy.html"
+                        Constants.termsWords: "https://doc-hosting.flycricket.io/bno-sport-way-terms-of-use/2ed3d3c7-ca8e-4c3a-a3ce-0e15526b2ae6/terms",
+                        Constants.privacyWords: "https://doc-hosting.flycricket.io/bno-sport-way-privacy-policy/82566c48-4495-46af-8f5e-9a4ac88d40f8/privacy"
                     ],
                     linksColor: .white,
                     originalTextColor: UIColor.white,
-                    linksFont: UIFont(font: .PoppinsRegular, size: 18)
+                    linksFont: UIFont(font: .PoppinsRegular, size: 16)
         )
         return lbl
     }()
@@ -99,6 +99,7 @@ class EnterCollectionViewCell: UICollectionViewCell, ReusableView {
         contentView.addSubview(bottomButton)
         contentView.addSubview(topButton)
         contentView.addSubview(termsAndPolicyTextView)
+        contentView.addSubview(termsAndPrivacyPolicyLinkLabel)
     }
     
     func setupWith(_ model: EnterLogicType) {
@@ -132,12 +133,13 @@ class EnterCollectionViewCell: UICollectionViewCell, ReusableView {
             iconImageView.image = UIImage(named: "NotificationTopImage")
             topButton.setTitle(Constants.notifyButtonTitle, for: .normal)
             bottomButton.setTitle(Constants.notNotifyTitle, for: .normal)
-            topButton.addTarget(nil, action: #selector(EnterViewController.noThanksTapped), for: .touchUpInside)
-            bottomButton.addTarget(nil, action: #selector(EnterViewController.allowNotificationTapped), for: .touchUpInside)
+            topButton.addTarget(nil, action: #selector(EnterViewController.allowNotificationTapped), for: .touchUpInside)
+            bottomButton.addTarget(nil, action: #selector(EnterViewController.noThanksTapped), for: .touchUpInside)
         case .signIn:
             prepareAttributesForTextView()
-//            termsAndPolicyTextView.isHidden = true
-//            topButton.isHidden = false
+            termsAndPrivacyPolicyLinkLabel.isHidden = false
+            termsAndPolicyTextView.isHidden = true
+            bottomButton.isHidden = true
             iconImageView.image = UIImage(named: "SignInTopImage")
             let style = NSMutableParagraphStyle()
             style.alignment = NSTextAlignment.center
@@ -219,6 +221,10 @@ class EnterCollectionViewCell: UICollectionViewCell, ReusableView {
         termsAndPolicyTextView.bottomAnchor.constraint(equalTo: bottomButton.topAnchor, constant: -31).isActive = true
         termsAndPolicyTextView.centerXAnchor.constraint(equalTo: termsAndPolicyTextView.superview!.centerXAnchor).isActive = true
         termsAndPolicyTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        termsAndPrivacyPolicyLinkLabel.topAnchor.constraint(equalTo: topButton.bottomAnchor, constant: 31).isActive = true
+        termsAndPrivacyPolicyLinkLabel.centerXAnchor.constraint(equalTo: topButton.centerXAnchor).isActive = true
+        termsAndPrivacyPolicyLinkLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func prepareAttributesForTextView() {

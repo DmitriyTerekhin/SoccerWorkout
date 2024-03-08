@@ -6,21 +6,21 @@
 //
 
 import UIKit
-//import NVActivityIndicatorView
+import NVActivityIndicatorView
 
 class LoaderButton: UIButton {
     
-//    private let loaderView: NVActivityIndicatorView = {
-//        let v = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: CGFloat(30).dp, height: CGFloat(30).dp),
-//                                        type: NVActivityIndicatorType.circleStrokeSpin)
-//        v.color = UIColor.white
-//        v.layer.zPosition = 100
-//        return v
-//    }()
+    private let loaderView: NVActivityIndicatorView = {
+        let v = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: CGFloat(30).dp, height: CGFloat(30).dp),
+                                        type: NVActivityIndicatorType.circleStrokeSpin)
+        v.color = UIColor.white
+        v.layer.zPosition = 100
+        return v
+    }()
     private var wasConfigured: Bool = false
     private var titleBeforeLoadingStart: String?
     private var imageBeforeStartLoading: UIImage?
-    private var initColor: UIColor? = .lightGray
+    var initColor: UIColor = .lightGray
     private let buttonDisableColorHex: Int = 0xD5D5D5
     var needToShowActiveOnStartState: Bool = true
     
@@ -46,19 +46,19 @@ class LoaderButton: UIButton {
     
     func setup() {
         backgroundColor = initColor
-//        addSubview(loaderView)
+        addSubview(loaderView)
         loaderConstraints()
         layer.cornerRadius = frame.height/2
-        changeActiveState(isActive: needToShowActiveOnStartState)
+        changeDisablingState(isActive: needToShowActiveOnStartState)
      }
     
-    func changeActiveState(isActive: Bool) {
+    func changeDisablingState(isActive: Bool) {
         isUserInteractionEnabled = isActive
         if isActive {
-            backgroundColor = initColor?.withAlphaComponent(1)
+            backgroundColor = initColor.withAlphaComponent(1)
         } else {
             safetySaveColor()
-            backgroundColor = initColor?.withAlphaComponent(0.2)
+            backgroundColor = initColor.withAlphaComponent(0.2)
         }
     }
     
@@ -71,9 +71,9 @@ class LoaderButton: UIButton {
             setTitle("", for: .normal)
             setImage(nil, for: .normal)
             backgroundColor = UIColor(netHex: buttonDisableColorHex)
-//            loaderView.startAnimating()
+            loaderView.startAnimating()
         } else {
-//            loaderView.stopAnimating()
+            loaderView.stopAnimating()
             setTitle(titleBeforeLoadingStart ?? "", for: .normal)
             setImage(imageBeforeStartLoading, for: .normal)
             backgroundColor = initColor
@@ -82,15 +82,15 @@ class LoaderButton: UIButton {
     
     private func safetySaveColor() {
         guard backgroundColor != UIColor(netHex: buttonDisableColorHex) else { return }
-        initColor = backgroundColor
+        initColor = backgroundColor ?? .lightGray
     }
     
     private func loaderConstraints() {
-//        loaderView.centerXAnchor.constraint(equalTo: loaderView.superview!.centerXAnchor).isActive = true
-//        loaderView.centerYAnchor.constraint(equalTo: loaderView.superview!.centerYAnchor).isActive = true
-//        loaderView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
-//        loaderView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
-//        loaderView.translatesAutoresizingMaskIntoConstraints = false
+        loaderView.centerXAnchor.constraint(equalTo: loaderView.superview!.centerXAnchor).isActive = true
+        loaderView.centerYAnchor.constraint(equalTo: loaderView.superview!.centerYAnchor).isActive = true
+        loaderView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
+        loaderView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 

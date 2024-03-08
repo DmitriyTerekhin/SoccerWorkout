@@ -10,6 +10,10 @@ import Foundation
 typealias FinishedCompletionHandler = (Bool) -> Void
 
 protocol ISensentiveInfoService: AnyObject {
+    var userSkill: Skill { get }
+    var userId: String { get }
+    func saveUserId(id: String)
+    func saveUserSkill(skill: Skill)
     func saveAppleToken(token: String)
     func saveNotificationToken(token: String)
     func deleteAllInfo(completionBlock: FinishedCompletionHandler)
@@ -17,12 +21,22 @@ protocol ISensentiveInfoService: AnyObject {
     func getAppleToken() -> String?
     func wasPushAsked() -> Bool
     func changeAskPushValue()
+    func changeUserInAppValue(isUserInApp: Bool)
+    func saveUserPoints(_ points: Int)
+    func getUserPoints() -> Int
 }
 
 class AppInfoService: ISensentiveInfoService {
     
     private let secureStorage: ISecureStorage
     private let appSettingsStorage: IUserDefaultsSettings
+    
+    var userSkill: Skill {
+        return secureStorage.getUserSkill() ?? .beginner
+    }
+    var userId: String {
+        return secureStorage.getUserId() ?? ""
+    }
 
     init(
         secureStorage: ISecureStorage,
@@ -30,6 +44,13 @@ class AppInfoService: ISensentiveInfoService {
     ) {
         self.secureStorage = secureStorage
         self.appSettingsStorage = userInfoStorage
+    }
+    
+    func saveUserId(id: String) {
+        secureStorage.saveUserId(id: id)
+    }
+    func saveUserSkill(skill: Skill) {
+        secureStorage.saveUserSkill(skill: skill)
     }
     
     func saveAppleToken(token: String) {
@@ -49,7 +70,7 @@ class AppInfoService: ISensentiveInfoService {
         secureStorage.getAppleToken()
     }
     
-    private func changeUserInAppValue(isUserInApp: Bool) {
+    func changeUserInAppValue(isUserInApp: Bool) {
         appSettingsStorage.changeUserInAppValue(on: isUserInApp)
     }
     
@@ -63,5 +84,11 @@ class AppInfoService: ISensentiveInfoService {
     
     func changeAskPushValue() {
         appSettingsStorage.changePushAsked(value: true)
+    }
+    func saveUserPoints(_ points: Int) {
+        secureStorage.saveUserPoints(point: points)
+    }
+    func getUserPoints() -> Int {
+        secureStorage.getUserPoints()
     }
 }

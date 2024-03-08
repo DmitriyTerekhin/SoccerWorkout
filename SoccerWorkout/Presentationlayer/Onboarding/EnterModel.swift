@@ -19,3 +19,9 @@ struct AuthModel {
     let expiresIn: String
     let tokenType: String
 }
+
+struct AuthDTO {
+    var level: Int
+    var userId: String
+    var token: String?
+}

@@ -6,14 +6,24 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 protocol INetworkService {
-    func loadHistory()
-    func loadWorkoutList()
+    func loadHistory(userId: String, completion: @escaping(Result<[WorkoutDTO], NetworkError>) -> Void)
     func makeAuth(token: String, completion: @escaping(Result<AuthModel, NetworkError>) -> Void)
     func sendPushToken(token: String)
+    func loadWorkoutList(userId: String, completion: @escaping(Result<[WorkoutDTO], NetworkError>) -> Void)
     func deleteProfile(token: String, completion: @escaping(Result<Bool, NetworkError>) -> Void)
     func revokeAppleToken(token: String, clientSecret: String, clientId: String, completionHandler: @escaping(Result<Bool, NetworkError>) -> Void)
+    func addWorkOutHistory(userId: String,
+                           workoutId: Int,
+                           workoutDate: String,
+                           completionHandler: @escaping (Result<Int, NetworkError>) -> Void)
+    func createUser(userId: String,
+                    level: Int,
+                    pushToken: String?,
+                    completion: @escaping(Result<AuthDTO, NetworkError>) -> Void)
+    func loadAvailableWorkouts(userId: String, completion: @escaping(Result<[WorkoutDTO], NetworkError>) -> Void)
 }
 
 class NetworkService: INetworkService {
@@ -24,12 +34,27 @@ class NetworkService: INetworkService {
          self.requestSender = requestSender
      }
     
-    func loadHistory() {
-        // Loading
+    func loadHistory(userId: String, completion: @escaping(Result<[WorkoutDTO], NetworkError>) -> Void) {
+        requestSender.send(requestConfig: ConfigFactory.loadHistory(userId: userId),
+                           completionHandler: completion)
     }
     
-    func loadWorkoutList() {
-        // loading
+    func loadWorkoutList(userId: String, completion: @escaping(Result<[WorkoutDTO], NetworkError>) -> Void) {
+        requestSender.send(
+            requestConfig: ConfigFactory.loadWorkoutsList(userId: userId),
+                           completionHandler: completion)
+    }
+    
+    func createUser(userId: String,
+                    level: Int,
+                    pushToken: String?,
+                    completion: @escaping(Result<AuthDTO, NetworkError>) -> Void) {
+        requestSender.send(requestConfig: ConfigFactory.createUser(authDTO:
+                                                                    AuthDTO(level: level,
+                                                                            userId: userId,
+                                                                            token: pushToken
+                                                                           )
+                                                                  ), completionHandler: completion)
     }
     
     func makeAuth(token: String, completion: @escaping (Result<AuthModel, NetworkError>) -> Void) {
@@ -49,5 +74,18 @@ class NetworkService: INetworkService {
                                                                          clientId: clientId,
                                                                          clientSecret: clientSecret),
                            completionHandler: completionHandler)
+    }
+    
+    func addWorkOutHistory(userId: String, workoutId: Int, workoutDate: String, completionHandler: @escaping (Result<Int, NetworkError>) -> Void) {
+        requestSender.send(requestConfig: ConfigFactory.addHistory(userId: userId,
+                                                                   workoutId: workoutId,
+                                                                   workoutDate: workoutDate),
+                           completionHandler: completionHandler)
+    }
+    
+    func loadAvailableWorkouts(userId: String, completion: @escaping (Result<[WorkoutDTO], NetworkError>) -> Void) {
+        requestSender.send(
+            requestConfig: ConfigFactory.loadAvailableWorkouts(userId: userId),
+                           completionHandler: completion)
     }
 }

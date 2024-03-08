@@ -1,10 +1,3 @@
-//
-//  HomeViewController.swift
-//  SoccerWorkout
-//
-//  Created by Ju on 21.02.2024.
-//
-
 import UIKit
 
 class HomeViewController: UIViewController {
@@ -26,6 +19,7 @@ class HomeViewController: UIViewController {
     
     override func loadView() {
         view = contentView
+        presenter.attachView(self)
     }
     
     override func viewDidLoad() {
@@ -38,17 +32,27 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         contentView.addStatus(to: navigationController?.navigationBar)
         contentView.tableView.dataSource = self
-        datasource = presenter.getTrainings()
-        contentView.tableView.reloadData()
+        let model = presenter.userModel
+        contentView.setupUserSkill(model.level, points: model.userPoints)
     }
     
     @objc
     func playButtonTapped() {
-        let vc = UINavigationController(rootViewController: presentationAssembly.playWorkoutScreen())
+        guard let workout = presenter.currentActiveWorkout else { return }
+        let vc = UINavigationController(rootViewController: presentationAssembly.playWorkoutScreen(workoutDTO: workout))
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
+    
+    @objc
+    func headerNotificationButtonTapped() {
+        presenter.notificationTapped()
+    }
 
+    @objc
+    func headerSettingsButtonTapped() {
+        presenter.homeHeaderSettingsTapped()
+    }
 }
 
 // MARK: - Table methods
@@ -65,9 +69,52 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - View
+extension HomeViewController: IHomeView {
+    
+    func showMessage(text: String) {
+        displayMsg(title: nil, msg: text)
+    }
+    
+    func showActiveNotification(show: Bool) {
+        contentView.showActiveNotification(show: show)
+    }
+    
+    func updateDataSource(info: [HomeViewModel]) {
+        datasource = info
+        contentView.tableView.reloadData()
+    }
+    
+    func updateStatus(userModel: UserModel) {
+        contentView.setupUserSkill(userModel.level, points: userModel.userPoints)
+    }
+    
+    func goToWorkoutDetail(workoutDTO: WorkoutDTO) {
+        let wrktDetail = presentationAssembly.workoutDetailScreen(workout: workoutDTO,
+                                                                  delegate: self)
+        navigationController?.pushViewController(wrktDetail, animated: true)
+    }
+    
+    func showLoader(toggle: Bool) {
+        contentView.showLoader(toggle: toggle)
+    }
+    
+    func showHeaderState(_ state: HomeHeaderState) {
+        contentView.setupHeader(state: state)
+    }
+}
+
 // MARK: - Delegates
-extension HomeViewController: WorkoutTableViewCellDelegate {
-    func editButtonTapped() {
-        navigationController?.pushViewController(presentationAssembly.workoutDetailScreen(), animated: true)
+extension HomeViewController: WorkoutTableViewCellDelegate, WorkoutDetailDelegate {
+    func notificationWasChanged() {
+        presenter.notificationForDetailWorkoutWasChanged()
+    }
+    
+    func workoutLevelWasChanged() {
+        presenter.skillWasChanged()
+    }
+    
+    func editButtonTapped(id: Int) {
+        presenter.workoutDetailTapped(id: id)
     }
 }

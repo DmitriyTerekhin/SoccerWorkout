@@ -11,8 +11,8 @@ class WorkoutViewController: UIViewController {
     
     private let contentView = WorkoutView()
     private let presenter: IWorkoutPresenter
-    private var dataSource: [WorkoutViewModel] = []
-    private var viewState: WorkoutState = .all
+    private var dataSource: [WorkoutHistorySectionViewModel] = []
+    var viewState: WorkoutState = .history
     
     init(presenter: IWorkoutPresenter) {
         self.presenter = presenter
@@ -37,32 +37,70 @@ class WorkoutViewController: UIViewController {
         contentView.addStatus(to: navigationController?.navigationBar)
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
-        dataSource = presenter.getTrainings()
         contentView.tableView.reloadData()
+        presenter.historyButtonTapped()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         contentView.configureView(for: viewState)
+        contentView.updateUserStatus(presenter.userModel.level, points: presenter.userModel.userPoints)
     }
     
     @objc 
     func allButtonTapped() {
         viewState = .all
         contentView.configureView(for: viewState)
+        presenter.allButtonTapped()
     }
     
     @objc
     func historyButtonTapped() {
         viewState = .history
         contentView.configureView(for: viewState)
+        presenter.historyButtonTapped()
     }
 
 }
 
 // MARK: - View
 extension WorkoutViewController: IWorkoutView {
+    func showMessage(text: String) {
+        displayMsg(title: nil, msg: text)
+    }
     
+    func updateStatus() {
+        let model = presenter.userModel
+        contentView.updateUserStatus(model.level, points: model.userPoints)
+    }
+    
+    func showHistory(history: [WorkoutHistorySectionViewModel]) {
+        dataSource = history
+        contentView.emptyMessage.isHidden = !history.isEmpty
+        contentView.tableView.reloadData()
+    }
+    
+    func showAll(workouts: [WorkoutViewModel]) {
+//        dataSource = workouts
+//        contentView.emptyMessage.isHidden = true
+//        contentView.tableView.reloadData()
+    }
+    
+    func emptyTableAndStartLoader() {
+        contentView.showLoader(toggle: true)
+        dataSource = []
+        contentView.tableView.reloadData()
+    }
+    
+    func showLoader(toggle: Bool) {
+        contentView.showLoader(toggle: toggle)
+    }
+    
+    func showResultView(info: [FinishedResultstTypes]) {
+        let resultVC = WorkoutResultViewController(workoutResultModels: info)
+        resultVC.modalPresentationStyle = .overFullScreen
+        present(resultVC, animated: true)
+    }
 }
 
 // MARK: - dataSource
@@ -83,8 +121,13 @@ extension WorkoutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: WorkoutTableViewCell.reuseID) as! WorkoutTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.reuseID) as! HistoryTableViewCell
         cell.configureView(model: dataSource[indexPath.section].workouts[indexPath.row])
+        cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.historyWassTapped(id: dataSource[indexPath.section].workouts[indexPath.row].id)
     }
 }

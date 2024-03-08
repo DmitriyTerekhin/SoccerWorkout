@@ -16,6 +16,12 @@ protocol ISecureStorage {
     func saveAppleRefreshToken(token: String)
     func getAppleToken() -> String?
     func savePushToken(token: String)
+    func saveUserId(id: String)
+    func getUserId() -> String?
+    func saveUserSkill(skill: Skill)
+    func getUserSkill() -> Skill?
+    func saveUserPoints(point: Int)
+    func getUserPoints() -> Int
     func deleteAllInfo(completionBlock: FinishedCompletionHandler)
 }
 
@@ -31,6 +37,9 @@ class SecureStorage: ISecureStorage {
         case appleAccessToken
         case appleRefreshToken
         case pushToken
+        case userId
+        case userSkill
+        case userPoints
         
         var title: String {
             return self.rawValue
@@ -63,5 +72,23 @@ class SecureStorage: ISecureStorage {
     }
     func savePushToken(token: String) {
         keychain.set(token, forKey: Constants.pushToken.title)
+    }
+    func saveUserId(id: String) {
+        keychain.set(id, forKey: Constants.userId.title)
+    }
+    func getUserId() -> String? {
+        keychain.get(Constants.userId.title)
+    }
+    func saveUserSkill(skill: Skill) {
+        keychain.set(skill.rawValue, forKey: Constants.userSkill.title)
+    }
+    func getUserSkill() -> Skill? {
+        return Skill(rawValue: keychain.get(Constants.userSkill.title) ?? "")
+    }
+    func saveUserPoints(point: Int) {
+        keychain.set(String(point), forKey: Constants.userPoints.title)
+    }
+    func getUserPoints() -> Int {
+        Int(keychain.get(Constants.userPoints.title) ?? "0") ?? 0
     }
 }

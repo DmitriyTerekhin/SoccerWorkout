@@ -12,7 +12,7 @@ struct ApiConstants {
     struct URL {
         static let privacyBase = "https://kb.bvdapp.com"
         static let appleBase = "https://appleid.apple.com"
-        static let base = "http://62.72.18.243:8008"
+        static let base = "https://www.b-app.xyz"
         
     }
     

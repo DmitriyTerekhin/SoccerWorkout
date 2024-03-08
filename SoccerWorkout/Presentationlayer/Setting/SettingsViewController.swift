@@ -11,10 +11,12 @@ class SettingsViewController: UIViewController {
     
     private let contentView = SettingsView()
     private let presenter: ISettingPresenter
+    private let presentationAssembly: IPresentationAssembly
     private let dataSource: [SettingsTypes] = [.termsOfUse, .privacy, .rateUs, .delete]
     
-    init(presenter: ISettingPresenter) {
+    init(presenter: ISettingPresenter, presentationAssembly: IPresentationAssembly) {
         self.presenter = presenter
+        self.presentationAssembly = presentationAssembly
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,6 +26,7 @@ class SettingsViewController: UIViewController {
     
     override func loadView() {
         view = contentView
+        presenter.attachView(self)
     }
 
     override func viewDidLoad() {
@@ -35,8 +38,48 @@ class SettingsViewController: UIViewController {
         contentView.addStatus(to: navigationController?.navigationBar)
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
+        contentView.goalView.configureView(level: nil)
+    }
+    
+    @objc
+    func beginnerTapped() {
+        presenter.saveUserSkill(skill: .beginner)
+    }
+    
+    @objc
+    func championTapped() {
+        presenter.saveUserSkill(skill: .champion)
+    }
+    
+    @objc
+    func expertTapped() {
+        presenter.saveUserSkill(skill: .expert)
+    }
+    
+    @objc
+    func changeGoalLevelTapped() {
+        let viewController = presentationAssembly.chooseGoalScreen(viewState: .edit(currentSkill: presenter.userModel.level))
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true)
     }
 
+}
+
+// MARK: - View
+extension SettingsViewController: ISettingsView {
+    func showWebView(url: String) {
+        let webview = presentationAssembly.webViewController(site: url, title: nil)
+        navigationController?.pushViewController(webview, animated: true)
+    }
+    
+    func goToEnterScreen() {
+        let enterView = presentationAssembly.enterScreen()
+        presentationAssembly.changeRootViewController(on: UINavigationController(rootViewController: enterView))
+    }
+    
+    func updateStatus(userModel: UserModel) {
+        contentView.setupUserSkill(userModel.level, points: userModel.userPoints)
+    }
 }
 
 // MARK: - UITableView datasource

@@ -70,57 +70,60 @@ class EnterViewController: UIViewController {
     
     @objc
     func signInWithAppleTapped() {
-        navigationController?.pushViewController(presentationAssemmbly.chooseSkillScreen(), animated: true)
-//        let provider = ASAuthorizationAppleIDProvider()
-//        let request = provider.createRequest()
-//        request.requestedScopes = [.email]
-//
-//        let controller = ASAuthorizationController(authorizationRequests: [request])
-//        controller.delegate = self
-//        controller.presentationContextProvider = self
-//        controller.performRequests()
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.email]
+
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
     }
     
-    private func makeAppleAuth(code: String) {
-        networkService.makeAuth(token: code) { [weak self] result in
-              DispatchQueue.main.async {
-                  guard let strongSelf = self else { return }
-                  switch result {
-                  case .success(let authModel):
-                      print(authModel)
-                      guard authModel.accessToken.count > 3 else { return }
-                      strongSelf.userInfoService.saveAppleToken(token: authModel.accessToken)
-                      strongSelf.goToTabBar()
-                  case .failure(let error):
-                      print(error.localizedDescription)
-                  }
-              }
-          }
-      }
+//    private func makeAppleAuth(code: String) {
+//        networkService.makeAuth(token: code) { [weak self] result in
+//              DispatchQueue.main.async {
+//                  guard let strongSelf = self else { return }
+//                  switch result {
+//                  case .success(let authModel):
+//                      print(authModel)
+//                      guard authModel.accessToken.count > 3 else { return }
+//                      strongSelf.userInfoService.saveAppleToken(token: authModel.accessToken)
+//                      strongSelf.goToTabBar()
+//                  case .failure(let error):
+//                      print(error.localizedDescription)
+//                  }
+//              }
+//          }
+//      }
     
-    @objc
-    func goToTabBar() {
-        presentationAssemmbly.changeRootViewController(on: presentationAssemmbly.tabBarViewController())
+//    @objc
+//    func goToTabBar() {
+//        presentationAssemmbly.changeRootViewController(on: presentationAssemmbly.tabBarViewController())
+//    }
+    
+    private func goToChooseSkill(userId: String) {
+        navigationController?.pushViewController(presentationAssemmbly.chooseSkillScreen(userId: userId), animated: true)
     }
     
     private func registerForPushNotifications(completionHandler: @escaping () -> Void) {
-       UNUserNotificationCenter.current()
-         .requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, _ in
-             completionHandler()
-             guard granted else { return }
-             self?.getNotificationSettings()
-         }
-     }
-     
-     private func getNotificationSettings() {
-       UNUserNotificationCenter.current().getNotificationSettings { settings in
-         print("Notification settings: \(settings)")
-           guard settings.authorizationStatus == .authorized else { return }
-           DispatchQueue.main.async {
-             UIApplication.shared.registerForRemoteNotifications()
-           }
-       }
-     }
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, _ in
+                completionHandler()
+                guard granted else { return }
+                self?.getNotificationSettings()
+            }
+    }
+    
+    private func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
 }
 
 // MARK: Delegates
@@ -147,13 +150,15 @@ extension EnterViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
-        case let credentiontials as ASAuthorizationAppleIDCredential:
+        case let credentiontials as ASAuthorizationAppleIDCredential: 
             guard
                 let code = credentiontials.authorizationCode,
                 let codeString = String(data: code, encoding: .utf8)
             else { return }
-            print(codeString)
-            makeAppleAuth(code: codeString)
+            print("Code from auth code: " + codeString)
+            DispatchQueue.main.async {
+                self.goToChooseSkill(userId: codeString)
+            }
         default:
             break
         }

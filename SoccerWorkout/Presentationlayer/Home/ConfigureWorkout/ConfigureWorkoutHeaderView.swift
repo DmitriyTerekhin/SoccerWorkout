@@ -42,9 +42,9 @@ class ConfigureWorkoutHeaderView: UIView {
     private let topTitleLabel = UILabel()
     private let bottomDescriptionLabel = UILabel()
     
-    private let notificationsButton: CustomButton = {
+    let notificationsButton: CustomButton = {
         let btn = CustomButton(type: .system)
-        btn.setImage(UIImage(named: "Notification")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.setImage(UIImage(named: "Notification")?.withRenderingMode(.alwaysTemplate), for: .normal)
         btn.layer.cornerRadius = 12
         return btn
     }()
@@ -100,14 +100,18 @@ class ConfigureWorkoutHeaderView: UIView {
             beginnerButton.changeActiveStatus(isActive: false)
             championButton.changeActiveStatus(isActive: false)
             expertButton.changeActiveStatus(isActive: true)
+        default:
+            break
         }
     }
     
-    private func setupView() {
-        backgroundColor = UIColor(netHex: 0x211F1F)
-        
-        let title = "Leg workout"
-        let subtitle = "Tomorrow, 11 Fed 2023 / 21:00 am"
+    private func setupDelegate() {
+        beginnerButton.addTarget(nil, action: #selector(ConfigureWorkoutViewController.beginnerTapped), for: .touchUpInside)
+        championButton.addTarget(nil, action: #selector(ConfigureWorkoutViewController.championTapped), for: .touchUpInside)
+        expertButton.addTarget(nil, action: #selector(ConfigureWorkoutViewController.expertTapped), for: .touchUpInside)
+    }
+    
+    func configureView(title: String, subtitle: String) {
         let titleAttributes = [
             .font: UIFont(font: .PoppinsMedium, size: 14),
             .foregroundColor: UIColor.white
@@ -121,6 +125,11 @@ class ConfigureWorkoutHeaderView: UIView {
         
         topTitleLabel.attributedText = NSAttributedString(string: title, attributes: titleAttributes)
         bottomDescriptionLabel.attributedText = NSAttributedString(string: subtitle, attributes: dateAttributes)
+    }
+    
+    private func setupView() {
+        setupDelegate()
+        backgroundColor = UIColor(netHex: 0x211F1F)
         
         layer.cornerRadius = 24
         

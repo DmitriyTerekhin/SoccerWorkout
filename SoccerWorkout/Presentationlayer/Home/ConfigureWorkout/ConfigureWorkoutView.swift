@@ -32,7 +32,12 @@ class ConfigureWorkoutView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func showActiveNotification(show: Bool) {
+        configureHeaderView.notificationsButton.tintColor = show ? .AppCollors.orange : .AppCollors.defaultGray
+    }
+    
     private func setupView() {
+        configureHeaderView.notificationsButton.addTarget(nil, action: #selector(ConfigureWorkoutViewController.headerNotificationButtonTapped), for: .touchUpInside)
         backgroundColor = .AppCollors.background
         addSubview(configureHeaderView)
         configureHeaderView.centerXAnchor.constraint(equalTo: configureHeaderView.superview!.centerXAnchor).isActive = true
@@ -47,5 +52,9 @@ class ConfigureWorkoutView: UIView {
         tableView.leftAnchor.constraint(equalTo: tableView.superview!.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: tableView.superview!.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: tableView.superview!.safeBottomAnchor).isActive = true
+    }
+    
+    func skillTapped(skill: Skill) {
+        configureHeaderView.setCurrentActiveSkill(activeSkill: skill)
     }
 }

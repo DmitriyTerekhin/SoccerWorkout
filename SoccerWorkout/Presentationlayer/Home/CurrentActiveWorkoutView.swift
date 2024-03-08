@@ -36,21 +36,23 @@ class CurrentActiveWorkoutView: UIView {
     }()
     private let labelsStackView: UIStackView = {
         let sv = UIStackView()
+        sv.alignment = .leading
         sv.axis = .vertical
         sv.spacing = -2
         return sv
     }()
     private let topTitleLabel = UILabel()
     private let bottomDescriptionLabel = UILabel()
-    private let settingButtons: CustomButton = {
+    let settingButtons: CustomButton = {
         let btn = CustomButton(type: .system)
         btn.setImage(UIImage(named: "ActiveSettings")?.withRenderingMode(.alwaysOriginal), for: .normal)
         btn.layer.cornerRadius = 12
         return btn
     }()
-    private let notificationsButton: CustomButton = {
+    let notificationsButton: CustomButton = {
         let btn = CustomButton(type: .system)
-        btn.setImage(UIImage(named: "Notification")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.setImage(UIImage(named: "Notification")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = .AppCollors.defaultGray
         btn.layer.cornerRadius = 12
         return btn
     }()
@@ -68,7 +70,7 @@ class CurrentActiveWorkoutView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupView(workoutName: "", date: "")
     }
     
     required init?(coder: NSCoder) {
@@ -80,19 +82,31 @@ class CurrentActiveWorkoutView: UIView {
         bottomDescriptionLabel.attributedText = subtitle
     }
     
-    private func setupView() {
+    func setupTimer(toDate: Date) {
+        let interval = toDate - Date()
+        timerView.startOtpTimer(minutes: interval.minute ?? 0)
+    }
+    
+    func setupView(workoutName: String, date: String) {
         
-        let title = "Leg workout"
-        let subtitle = "Today, 16:00 am"
-        let titleAttributes = [
+        let title = workoutName
+        let subtitle = date
+       
+        let style = NSMutableParagraphStyle()
+        style.alignment = NSTextAlignment.left
+        style.paragraphSpacingBefore = 4
+        
+        let titleAttributes: [NSAttributedString.Key : Any]  = [
             .font: UIFont(font: .PoppinsMedium, size: 14),
-            .foregroundColor: UIColor.white
+            .foregroundColor: UIColor.white,
+            .paragraphStyle: style
         ] as [NSAttributedString.Key : Any]
         
         // Subtitle
         let dateAttributes = [
             .font: UIFont(font: .PoppinsMedium, size: 14),
-            .foregroundColor: UIColor.AppCollors.defaultGray
+            .foregroundColor: UIColor.AppCollors.defaultGray,
+            .paragraphStyle: style
         ] as [NSAttributedString.Key : Any]
         
         topTitleLabel.attributedText = NSAttributedString(string: title, attributes: titleAttributes)
@@ -110,20 +124,20 @@ class CurrentActiveWorkoutView: UIView {
         mainStackView.addArrangedSubview(topStackView)
         topStackView.translatesAutoresizingMaskIntoConstraints = false
         topStackView.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        topStackView.addArrangedSubview(labelsStackView)
-        labelsStackView.widthAnchor.constraint(lessThanOrEqualToConstant: 208).isActive = true
-        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
         labelsStackView.addArrangedSubview(topTitleLabel)
         topTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         labelsStackView.addArrangedSubview(bottomDescriptionLabel)
         bottomDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        let spaceView = UIView()
-        spaceView.translatesAutoresizingMaskIntoConstraints = false
-        topStackView.addArrangedSubview(spaceView)
+        
+        topStackView.addArrangedSubview(labelsStackView)
+        labelsStackView.widthAnchor.constraint(lessThanOrEqualToConstant: 208).isActive = true
+        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
         topStackView.addArrangedSubview(notificationsButton)
         notificationsButton.translatesAutoresizingMaskIntoConstraints = false
         notificationsButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
         notificationsButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        
         topStackView.addArrangedSubview(settingButtons)
         settingButtons.translatesAutoresizingMaskIntoConstraints = false
         settingButtons.widthAnchor.constraint(equalToConstant: 48).isActive = true
@@ -155,4 +169,18 @@ class CurrentActiveWorkoutView: UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+}
+
+private extension Date {
+
+    static func -(recent: Date, previous: Date) -> (month: Int?, day: Int?, hour: Int?, minute: Int?, second: Int?) {
+        let day = Calendar.current.dateComponents([.day], from: previous, to: recent).day
+        let month = Calendar.current.dateComponents([.month], from: previous, to: recent).month
+        let hour = Calendar.current.dateComponents([.hour], from: previous, to: recent).hour
+        let minute = Calendar.current.dateComponents([.minute], from: previous, to: recent).minute
+        let second = Calendar.current.dateComponents([.second], from: previous, to: recent).second
+
+        return (month: month, day: day, hour: hour, minute: minute, second: second)
+    }
+
 }

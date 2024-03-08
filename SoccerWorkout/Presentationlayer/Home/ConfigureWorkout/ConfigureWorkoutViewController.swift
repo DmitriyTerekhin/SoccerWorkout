@@ -7,12 +7,18 @@
 
 import UIKit
 
-class ConfigureWorkoutViewController: UIViewController {
+protocol WorkoutDetailDelegate: AnyObject {
+    func workoutLevelWasChanged()
+    func notificationWasChanged()
+}
+
+class ConfigureWorkoutViewController: UIViewController, AskChangesDelegate {
     
     private let presenter: IConfigureWorkoutPresenter
     private var datasource: [ExerciseModel] = []
     private let contentView = ConfigureWorkoutView()
-    
+    private var askVC = AskChangesViewController()
+        
     init(presenter: IConfigureWorkoutPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -24,13 +30,13 @@ class ConfigureWorkoutViewController: UIViewController {
     
     override func loadView() {
         view = contentView
+        presenter.attachView(self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        datasource = presenter.excerciseDataSource
         contentView.tableView.dataSource = self
-        contentView.configureHeaderView.setCurrentActiveSkill(activeSkill: .beginner)
+        askVC.delegate = self
         setupNavigationBar()
     }
 
@@ -38,7 +44,7 @@ class ConfigureWorkoutViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "BackButton"), for: .normal)
         button.setTitle("", for: .normal)
-        button.addTarget(self, action: #selector(dismmiss), for: .touchUpInside)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
         button.sizeToFit()
         let barButton = UIBarButtonItem(customView: button)
@@ -46,8 +52,64 @@ class ConfigureWorkoutViewController: UIViewController {
     }
     
     @objc
-    func dismmiss() {
+    func headerNotificationButtonTapped() {
+        presenter.notificationTapped()
+    }
+    
+    @objc
+    func backButtonTapped() {
+        presenter.backButtonTapped()
+    }
+    
+    @objc
+    func beginnerTapped() {
+        contentView.skillTapped(skill: .beginner)
+        presenter.skillTapped(skill: .beginner)
+    }
+    
+    @objc
+    func championTapped() {
+        contentView.skillTapped(skill: .champion)
+        presenter.skillTapped(skill: .champion)
+    }
+    
+    @objc
+    func expertTapped() {
+        contentView.skillTapped(skill: .expert)
+        presenter.skillTapped(skill: .expert)
+    }
+    func saveTapped() {
+        presenter.saveLevelForCurrentWorkout()
+    }
+    
+    func noTapped() {
+        goBack()
+    }
+}
+
+// MARK: - View
+extension ConfigureWorkoutViewController: IConfigureWorkoutView {
+    func showActiveNotification(show: Bool) {
+        contentView.showActiveNotification(show: show)
+    }
+    
+    func configureHeader(title: String, subtitle: String, for skill: Skill) {
+        contentView.configureHeaderView.configureView(title: title, subtitle: subtitle)
+        contentView.configureHeaderView.setCurrentActiveSkill(activeSkill: skill)
+    }
+    
+    func updateExcercise(excercise: [ExerciseModel]) {
+        datasource = excercise
+        contentView.tableView.reloadData()
+    }
+    
+    func goBack() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func askToSaveChanges() {
+        askVC.modalPresentationStyle = .overCurrentContext
+        present(askVC, animated: false)
     }
 }
 

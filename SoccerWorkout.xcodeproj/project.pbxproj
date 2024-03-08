@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B7BD4372B9B172A004B97CE /* ChooseGoalLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7BD4362B9B172A004B97CE /* ChooseGoalLevelViewController.swift */; };
+		8B7BD43A2B9B17A3004B97CE /* ChooseGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7BD4392B9B17A3004B97CE /* ChooseGoalView.swift */; };
+		8B7BD43C2B9B2291004B97CE /* ChooseGoalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7BD43B2B9B2291004B97CE /* ChooseGoalModel.swift */; };
+		8B7BD43E2B9B2BF9004B97CE /* ChooseGoalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7BD43D2B9B2BF9004B97CE /* ChooseGoalPresenter.swift */; };
+		8B7BD4402B9B3B09004B97CE /* ChooseGoalSettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7BD43F2B9B3B09004B97CE /* ChooseGoalSettingsButtonView.swift */; };
 		8BC86C232B85D0F400FE5B59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86C222B85D0F400FE5B59 /* AppDelegate.swift */; };
 		8BC86C252B85D0F400FE5B59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86C242B85D0F400FE5B59 /* SceneDelegate.swift */; };
 		8BC86C2C2B85D0F500FE5B59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BC86C2B2B85D0F500FE5B59 /* Assets.xcassets */; };
@@ -105,6 +110,33 @@
 		8BC86D1E2B8A328A00FE5B59 /* WorkoutFinishedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D1D2B8A328A00FE5B59 /* WorkoutFinishedView.swift */; };
 		8BC86D202B8A335F00FE5B59 /* WorkoutFinishedListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D1F2B8A335F00FE5B59 /* WorkoutFinishedListItemView.swift */; };
 		8BC86D222B8A3DE100FE5B59 /* PlayWorkoutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D212B8A3DE100FE5B59 /* PlayWorkoutModels.swift */; };
+		8BC86D2A2B8B6B0000FE5B59 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D292B8B6B0000FE5B59 /* Constants.swift */; };
+		8BC86D2C2B8B6F4900FE5B59 /* SkillRegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D2B2B8B6F4900FE5B59 /* SkillRegistrationPresenter.swift */; };
+		8BC86D2E2B8B80AF00FE5B59 /* CreateUserParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D2D2B8B80AF00FE5B59 /* CreateUserParser.swift */; };
+		8BC86D302B8BD93900FE5B59 /* WorkoutListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D2F2B8BD93900FE5B59 /* WorkoutListParser.swift */; };
+		8BC86D322B8BE04E00FE5B59 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D312B8BE04E00FE5B59 /* StringExt.swift */; };
+		8BC86D342B8C9A3200FE5B59 /* LoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D332B8C9A3200FE5B59 /* LoadingFooterView.swift */; };
+		8BC86D3A2B8CDB1C00FE5B59 /* AllWorkoutsDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D392B8CDB1C00FE5B59 /* AllWorkoutsDoneView.swift */; };
+		8BC86D3E2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D3C2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodeld */; };
+		8BC86D442B8CE4CC00FE5B59 /* ManageObjectType_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D402B8CE4CC00FE5B59 /* ManageObjectType_Extensions.swift */; };
+		8BC86D452B8CE4CC00FE5B59 /* CoreDataProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D412B8CE4CC00FE5B59 /* CoreDataProtocols.swift */; };
+		8BC86D462B8CE4CC00FE5B59 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D422B8CE4CC00FE5B59 /* NSManagedObjectContext.swift */; };
+		8BC86D472B8CE4CC00FE5B59 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D432B8CE4CC00FE5B59 /* CoreDataStack.swift */; };
+		8BC86D492B8CE53200FE5B59 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D482B8CE53200FE5B59 /* User.swift */; };
+		8BC86D4B2B8CE81700FE5B59 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D4A2B8CE81700FE5B59 /* CoreDataManager.swift */; };
+		8BC86D4D2B8CEA2100FE5B59 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D4C2B8CEA2100FE5B59 /* DatabaseService.swift */; };
+		8BC86D502B8DA9AB00FE5B59 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D4F2B8DA9AB00FE5B59 /* Mocks.swift */; };
+		8BC86D522B8DC57700FE5B59 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D512B8DC57700FE5B59 /* NotificationService.swift */; };
+		8BC86D542B8DC89E00FE5B59 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D532B8DC89E00FE5B59 /* LocalNotifications.swift */; };
+		8BC86D8B2B8E3DB500FE5B59 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D8A2B8E3DB500FE5B59 /* Workout.swift */; };
+		8BC86D8E2B8E479000FE5B59 /* AskChangesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D8D2B8E479000FE5B59 /* AskChangesViewController.swift */; };
+		8BC86D902B8E47A800FE5B59 /* AskChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D8F2B8E47A800FE5B59 /* AskChangesView.swift */; };
+		8BC86D922B8EFC4C00FE5B59 /* HistoryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D912B8EFC4C00FE5B59 /* HistoryParser.swift */; };
+		8BC86D942B8F033000FE5B59 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86D932B8F033000FE5B59 /* HistoryTableViewCell.swift */; };
+		8BC86D962B8F0EE900FE5B59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BC86D952B8F0EE900FE5B59 /* GoogleService-Info.plist */; };
+		8BC86DD62B92FB7D00FE5B59 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86DD52B92FB7D00FE5B59 /* WorkoutHistory.swift */; };
+		8BC86DD82B934F8300FE5B59 /* WorkoutResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86DD72B934F8300FE5B59 /* WorkoutResultViewController.swift */; };
+		8BC86DDB2B934FCE00FE5B59 /* WorkoutResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC86DDA2B934FCE00FE5B59 /* WorkoutResultView.swift */; };
 		A187F7995417EE5A5AA09DDF /* Pods_SoccerWorkout_SoccerWorkoutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D5766250EF0B99D74F69E3 /* Pods_SoccerWorkout_SoccerWorkoutUITests.framework */; };
 		E1033C5978E409A1850E7C87 /* Pods_SoccerWorkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E5822AAF60EE191CBEFED2 /* Pods_SoccerWorkout.framework */; };
 		FF32FBBA603F260A8FFBA11F /* Pods_SoccerWorkoutTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 219A8B71A93A78275A524970 /* Pods_SoccerWorkoutTests.framework */; };
@@ -132,6 +164,11 @@
 		219A8B71A93A78275A524970 /* Pods_SoccerWorkoutTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoccerWorkoutTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		249FCC52992C8A734E9A188B /* Pods-SoccerWorkout-SoccerWorkoutUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerWorkout-SoccerWorkoutUITests.release.xcconfig"; path = "Target Support Files/Pods-SoccerWorkout-SoccerWorkoutUITests/Pods-SoccerWorkout-SoccerWorkoutUITests.release.xcconfig"; sourceTree = "<group>"; };
 		74D5766250EF0B99D74F69E3 /* Pods_SoccerWorkout_SoccerWorkoutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoccerWorkout_SoccerWorkoutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B7BD4362B9B172A004B97CE /* ChooseGoalLevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalLevelViewController.swift; sourceTree = "<group>"; };
+		8B7BD4392B9B17A3004B97CE /* ChooseGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalView.swift; sourceTree = "<group>"; };
+		8B7BD43B2B9B2291004B97CE /* ChooseGoalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalModel.swift; sourceTree = "<group>"; };
+		8B7BD43D2B9B2BF9004B97CE /* ChooseGoalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalPresenter.swift; sourceTree = "<group>"; };
+		8B7BD43F2B9B3B09004B97CE /* ChooseGoalSettingsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseGoalSettingsButtonView.swift; sourceTree = "<group>"; };
 		8BC86C1F2B85D0F400FE5B59 /* SoccerWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoccerWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC86C222B85D0F400FE5B59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BC86C242B85D0F400FE5B59 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -235,6 +272,33 @@
 		8BC86D1F2B8A335F00FE5B59 /* WorkoutFinishedListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFinishedListItemView.swift; sourceTree = "<group>"; };
 		8BC86D212B8A3DE100FE5B59 /* PlayWorkoutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayWorkoutModels.swift; sourceTree = "<group>"; };
 		8BC86D232B8A73F900FE5B59 /* SoccerWorkout.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoccerWorkout.entitlements; sourceTree = "<group>"; };
+		8BC86D292B8B6B0000FE5B59 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8BC86D2B2B8B6F4900FE5B59 /* SkillRegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillRegistrationPresenter.swift; sourceTree = "<group>"; };
+		8BC86D2D2B8B80AF00FE5B59 /* CreateUserParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserParser.swift; sourceTree = "<group>"; };
+		8BC86D2F2B8BD93900FE5B59 /* WorkoutListParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListParser.swift; sourceTree = "<group>"; };
+		8BC86D312B8BE04E00FE5B59 /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
+		8BC86D332B8C9A3200FE5B59 /* LoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooterView.swift; sourceTree = "<group>"; };
+		8BC86D392B8CDB1C00FE5B59 /* AllWorkoutsDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWorkoutsDoneView.swift; sourceTree = "<group>"; };
+		8BC86D3D2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = " SoccerWorkout.xcdatamodel"; sourceTree = "<group>"; };
+		8BC86D402B8CE4CC00FE5B59 /* ManageObjectType_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageObjectType_Extensions.swift; sourceTree = "<group>"; };
+		8BC86D412B8CE4CC00FE5B59 /* CoreDataProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataProtocols.swift; sourceTree = "<group>"; };
+		8BC86D422B8CE4CC00FE5B59 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		8BC86D432B8CE4CC00FE5B59 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		8BC86D482B8CE53200FE5B59 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8BC86D4A2B8CE81700FE5B59 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		8BC86D4C2B8CEA2100FE5B59 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		8BC86D4F2B8DA9AB00FE5B59 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		8BC86D512B8DC57700FE5B59 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		8BC86D532B8DC89E00FE5B59 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
+		8BC86D8A2B8E3DB500FE5B59 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		8BC86D8D2B8E479000FE5B59 /* AskChangesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskChangesViewController.swift; sourceTree = "<group>"; };
+		8BC86D8F2B8E47A800FE5B59 /* AskChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskChangesView.swift; sourceTree = "<group>"; };
+		8BC86D912B8EFC4C00FE5B59 /* HistoryParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryParser.swift; sourceTree = "<group>"; };
+		8BC86D932B8F033000FE5B59 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		8BC86D952B8F0EE900FE5B59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8BC86DD52B92FB7D00FE5B59 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
+		8BC86DD72B934F8300FE5B59 /* WorkoutResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutResultViewController.swift; sourceTree = "<group>"; };
+		8BC86DDA2B934FCE00FE5B59 /* WorkoutResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutResultView.swift; sourceTree = "<group>"; };
 		9A30F80EF1FB622D589A92D1 /* Pods-SoccerWorkoutTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerWorkoutTests.release.xcconfig"; path = "Target Support Files/Pods-SoccerWorkoutTests/Pods-SoccerWorkoutTests.release.xcconfig"; sourceTree = "<group>"; };
 		C54C604C8B67FF17137474A3 /* Pods-SoccerWorkout-SoccerWorkoutUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerWorkout-SoccerWorkoutUITests.debug.xcconfig"; path = "Target Support Files/Pods-SoccerWorkout-SoccerWorkoutUITests/Pods-SoccerWorkout-SoccerWorkoutUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E01A8C3501E4E14DFD39F542 /* Pods-SoccerWorkout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerWorkout.debug.xcconfig"; path = "Target Support Files/Pods-SoccerWorkout/Pods-SoccerWorkout.debug.xcconfig"; sourceTree = "<group>"; };
@@ -283,6 +347,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8B7BD4382B9B177F004B97CE /* ChooseGoal */ = {
+			isa = PBXGroup;
+			children = (
+				8B7BD4362B9B172A004B97CE /* ChooseGoalLevelViewController.swift */,
+				8B7BD4392B9B17A3004B97CE /* ChooseGoalView.swift */,
+				8B7BD43B2B9B2291004B97CE /* ChooseGoalModel.swift */,
+				8B7BD43D2B9B2BF9004B97CE /* ChooseGoalPresenter.swift */,
+			);
+			path = ChooseGoal;
+			sourceTree = "<group>";
+		};
 		8BC86C162B85D0F400FE5B59 = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +383,7 @@
 		8BC86C212B85D0F400FE5B59 /* SoccerWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				8BC86D952B8F0EE900FE5B59 /* GoogleService-Info.plist */,
 				8BC86D232B8A73F900FE5B59 /* SoccerWorkout.entitlements */,
 				8BC86C562B85D24400FE5B59 /* Presentationlayer */,
 				8BC86C542B85D21600FE5B59 /* ServiceLayer */,
@@ -351,6 +427,7 @@
 		8BC86C532B85D20F00FE5B59 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8BC86D3B2B8CE38600FE5B59 /* CoreData */,
 				8BC86CA02B8620D900FE5B59 /* Network */,
 				8BC86C572B85D31300FE5B59 /* CoreAssembly.swift */,
 				8BC86CBE2B8625A900FE5B59 /* SecureStorage.swift */,
@@ -362,9 +439,13 @@
 		8BC86C542B85D21600FE5B59 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8BC86D4E2B8DA99A00FE5B59 /* Mocks */,
 				8BC86C592B85D32500FE5B59 /* ServiceAssembly.swift */,
 				8BC86CA32B86239000FE5B59 /* NetworkService.swift */,
 				8BC86CBC2B86257000FE5B59 /* AppInfoService.swift */,
+				8BC86D292B8B6B0000FE5B59 /* Constants.swift */,
+				8BC86D4C2B8CEA2100FE5B59 /* DatabaseService.swift */,
+				8BC86D512B8DC57700FE5B59 /* NotificationService.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -372,6 +453,7 @@
 		8BC86C562B85D24400FE5B59 /* Presentationlayer */ = {
 			isa = PBXGroup;
 			children = (
+				8B7BD4382B9B177F004B97CE /* ChooseGoal */,
 				8BC86CD82B86661200FE5B59 /* SkillRegistration */,
 				8BC86CD32B86277F00FE5B59 /* Setting */,
 				8BC86CD02B86275A00FE5B59 /* Home */,
@@ -405,6 +487,7 @@
 				8BC86C752B86141D00FE5B59 /* Extensions */,
 				8BC86C842B86141D00FE5B59 /* Globals.swift */,
 				8BC86C852B86141D00FE5B59 /* WebViewViewController.swift */,
+				8BC86D332B8C9A3200FE5B59 /* LoadingFooterView.swift */,
 			);
 			path = SupportingElements;
 			sourceTree = "<group>";
@@ -437,6 +520,7 @@
 				8BC86C812B86141D00FE5B59 /* UIApplicationExt.swift */,
 				8BC86C822B86141D00FE5B59 /* DateExt.swift */,
 				8BC86C832B86141D00FE5B59 /* UILabelExt.swift */,
+				8BC86D312B8BE04E00FE5B59 /* StringExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -465,6 +549,9 @@
 				8BC86CB12B8624DC00FE5B59 /* SavePushTokenParser.swift */,
 				8BC86CB22B8624DD00FE5B59 /* SignInParser.swift */,
 				8BC86CB32B8624DD00FE5B59 /* SucceedParser.swift */,
+				8BC86D2D2B8B80AF00FE5B59 /* CreateUserParser.swift */,
+				8BC86D2F2B8BD93900FE5B59 /* WorkoutListParser.swift */,
+				8BC86D912B8EFC4C00FE5B59 /* HistoryParser.swift */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -483,11 +570,13 @@
 		8BC86CCD2B86273500FE5B59 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				8BC86DD92B934F8F00FE5B59 /* WorkoutResult */,
 				8BC86CCE2B86275100FE5B59 /* WorkoutViewController.swift */,
 				8BC86CF62B881F0A00FE5B59 /* WorkoutView.swift */,
 				8BC86CF82B8820F000FE5B59 /* WorkoutPresenter.swift */,
 				8BC86CFA2B8821D900FE5B59 /* WorkoutModels.swift */,
 				8BC86CFC2B88272700FE5B59 /* WorkoutSectionHeaderView.swift */,
+				8BC86D932B8F033000FE5B59 /* HistoryTableViewCell.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -509,6 +598,7 @@
 				8BC86CEF2B87422800FE5B59 /* HomeHeaderView.swift */,
 				8BC86CF12B8744B500FE5B59 /* CustomButton.swift */,
 				8BC86CF32B874F6200FE5B59 /* StatusView.swift */,
+				8BC86D392B8CDB1C00FE5B59 /* AllWorkoutsDoneView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -521,6 +611,7 @@
 				8BC86D002B883D1A00FE5B59 /* SettingsModels.swift */,
 				8BC86D022B883FC100FE5B59 /* SettingsTableViewCell.swift */,
 				8BC86D052B88559000FE5B59 /* SettingsPresenter.swift */,
+				8B7BD43F2B9B3B09004B97CE /* ChooseGoalSettingsButtonView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -531,6 +622,7 @@
 				8BC86CD92B86664600FE5B59 /* ChooseSkillViewController.swift */,
 				8BC86CDB2B86667300FE5B59 /* ChooseSkillView.swift */,
 				8BC86CDD2B868DF800FE5B59 /* SkillModels.swift */,
+				8BC86D2B2B8B6F4900FE5B59 /* SkillRegistrationPresenter.swift */,
 			);
 			path = SkillRegistration;
 			sourceTree = "<group>";
@@ -538,6 +630,7 @@
 		8BC86D072B886C9400FE5B59 /* ConfigureWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				8BC86D8C2B8E475F00FE5B59 /* AskAlert */,
 				8BC86D082B886CC100FE5B59 /* ConfigureWorkoutViewController.swift */,
 				8BC86D0A2B886DA600FE5B59 /* ConfigureWorkoutView.swift */,
 				8BC86D0C2B886E6900FE5B59 /* ConfigureWorkoutHeaderView.swift */,
@@ -560,6 +653,57 @@
 				8BC86D212B8A3DE100FE5B59 /* PlayWorkoutModels.swift */,
 			);
 			path = PlayWorkout;
+			sourceTree = "<group>";
+		};
+		8BC86D3B2B8CE38600FE5B59 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8BC86D3F2B8CE4B900FE5B59 /* SupportingFiles */,
+				8BC86D3C2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodeld */,
+				8BC86D482B8CE53200FE5B59 /* User.swift */,
+				8BC86D4A2B8CE81700FE5B59 /* CoreDataManager.swift */,
+				8BC86D532B8DC89E00FE5B59 /* LocalNotifications.swift */,
+				8BC86D8A2B8E3DB500FE5B59 /* Workout.swift */,
+				8BC86DD52B92FB7D00FE5B59 /* WorkoutHistory.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		8BC86D3F2B8CE4B900FE5B59 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8BC86D412B8CE4CC00FE5B59 /* CoreDataProtocols.swift */,
+				8BC86D432B8CE4CC00FE5B59 /* CoreDataStack.swift */,
+				8BC86D402B8CE4CC00FE5B59 /* ManageObjectType_Extensions.swift */,
+				8BC86D422B8CE4CC00FE5B59 /* NSManagedObjectContext.swift */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		8BC86D4E2B8DA99A00FE5B59 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8BC86D4F2B8DA9AB00FE5B59 /* Mocks.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		8BC86D8C2B8E475F00FE5B59 /* AskAlert */ = {
+			isa = PBXGroup;
+			children = (
+				8BC86D8D2B8E479000FE5B59 /* AskChangesViewController.swift */,
+				8BC86D8F2B8E47A800FE5B59 /* AskChangesView.swift */,
+			);
+			path = AskAlert;
+			sourceTree = "<group>";
+		};
+		8BC86DD92B934F8F00FE5B59 /* WorkoutResult */ = {
+			isa = PBXGroup;
+			children = (
+				8BC86DD72B934F8300FE5B59 /* WorkoutResultViewController.swift */,
+				8BC86DDA2B934FCE00FE5B59 /* WorkoutResultView.swift */,
+			);
+			path = WorkoutResult;
 			sourceTree = "<group>";
 		};
 		AABFB35CE6379AB9DAABD1ED /* Frameworks */ = {
@@ -683,6 +827,7 @@
 			files = (
 				8BC86C9E2B8617D700FE5B59 /* Poppins-Medium.ttf in Resources */,
 				8BC86C2F2B85D0F500FE5B59 /* LaunchScreen.storyboard in Resources */,
+				8BC86D962B8F0EE900FE5B59 /* GoogleService-Info.plist in Resources */,
 				8BC86C2C2B85D0F500FE5B59 /* Assets.xcassets in Resources */,
 				8BC86C9F2B8617D700FE5B59 /* Poppins-Regular.ttf in Resources */,
 			);
@@ -814,15 +959,22 @@
 			files = (
 				8BC86C8B2B86141D00FE5B59 /* LoaderButton.swift in Sources */,
 				8BC86C922B86141D00FE5B59 /* UISearchBarExt.swift in Sources */,
+				8BC86D902B8E47A800FE5B59 /* AskChangesView.swift in Sources */,
+				8BC86D3E2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodeld in Sources */,
+				8BC86D442B8CE4CC00FE5B59 /* ManageObjectType_Extensions.swift in Sources */,
+				8BC86D522B8DC57700FE5B59 /* NotificationService.swift in Sources */,
 				8BC86CA62B8623D700FE5B59 /* RequestSender.swift in Sources */,
 				8BC86CDE2B868DF800FE5B59 /* SkillModels.swift in Sources */,
 				8BC86CF42B874F6200FE5B59 /* StatusView.swift in Sources */,
+				8BC86DDB2B934FCE00FE5B59 /* WorkoutResultView.swift in Sources */,
+				8B7BD43E2B9B2BF9004B97CE /* ChooseGoalPresenter.swift in Sources */,
 				8BC86C8E2B86141D00FE5B59 /* UIButtonExt.swift in Sources */,
 				8BC86CDA2B86664600FE5B59 /* ChooseSkillViewController.swift in Sources */,
 				8BC86C862B86141D00FE5B59 /* DeviceEnum.swift in Sources */,
 				8BC86CB42B8624DD00FE5B59 /* DeleteParser.swift in Sources */,
 				8BC86CF02B87422800FE5B59 /* HomeHeaderView.swift in Sources */,
 				8BC86C6B2B8613FF00FE5B59 /* EnterModel.swift in Sources */,
+				8BC86DD82B934F8300FE5B59 /* WorkoutResultViewController.swift in Sources */,
 				8BC86C8A2B86141D00FE5B59 /* InteractiveLinkLabel.swift in Sources */,
 				8BC86CB92B8624FA00FE5B59 /* WorkoutEndPoint.swift in Sources */,
 				8BC86CCA2B86264C00FE5B59 /* CustomTabBarController.swift in Sources */,
@@ -831,15 +983,20 @@
 				8BC86CFF2B883CBD00FE5B59 /* SettingsView.swift in Sources */,
 				8BC86CCF2B86275100FE5B59 /* WorkoutViewController.swift in Sources */,
 				8BC86D202B8A335F00FE5B59 /* WorkoutFinishedListItemView.swift in Sources */,
+				8BC86D302B8BD93900FE5B59 /* WorkoutListParser.swift in Sources */,
 				8BC86CCC2B86270B00FE5B59 /* AppleApiEndPoint.swift in Sources */,
+				8BC86D942B8F033000FE5B59 /* HistoryTableViewCell.swift in Sources */,
 				8BC86C582B85D31300FE5B59 /* CoreAssembly.swift in Sources */,
 				8BC86CF22B8744B500FE5B59 /* CustomButton.swift in Sources */,
 				8BC86C972B86141D00FE5B59 /* UIApplicationExt.swift in Sources */,
 				8BC86C5A2B85D32500FE5B59 /* ServiceAssembly.swift in Sources */,
 				8BC86CA22B8620EA00FE5B59 /* ApiConstants.swift in Sources */,
+				8BC86D452B8CE4CC00FE5B59 /* CoreDataProtocols.swift in Sources */,
+				8BC86D2E2B8B80AF00FE5B59 /* CreateUserParser.swift in Sources */,
 				8BC86C962B86141D00FE5B59 /* UITextViewExt.swift in Sources */,
 				8BC86D112B8874AD00FE5B59 /* ConfigureWorkoutPresenter.swift in Sources */,
 				8BC86CE42B87114E00FE5B59 /* GradientView.swift in Sources */,
+				8BC86D4B2B8CE81700FE5B59 /* CoreDataManager.swift in Sources */,
 				8BC86CC12B8625C100FE5B59 /* UserDefaultsStorage.swift in Sources */,
 				8BC86C232B85D0F400FE5B59 /* AppDelegate.swift in Sources */,
 				8BC86C6C2B8613FF00FE5B59 /* EnterViewController.swift in Sources */,
@@ -852,15 +1009,21 @@
 				8BC86CEA2B87343200FE5B59 /* CurrentActiveWorkoutView.swift in Sources */,
 				8BC86C952B86141D00FE5B59 /* ClassExt.swift in Sources */,
 				8BC86C882B86141D00FE5B59 /* AdaptiveLayoutHelper.swift in Sources */,
+				8BC86D922B8EFC4C00FE5B59 /* HistoryParser.swift in Sources */,
+				8BC86D3A2B8CDB1C00FE5B59 /* AllWorkoutsDoneView.swift in Sources */,
 				8BC86C902B86141D00FE5B59 /* UIFontExt.swift in Sources */,
 				8BC86CFD2B88272700FE5B59 /* WorkoutSectionHeaderView.swift in Sources */,
 				8BC86D032B883FC100FE5B59 /* SettingsTableViewCell.swift in Sources */,
+				8BC86D462B8CE4CC00FE5B59 /* NSManagedObjectContext.swift in Sources */,
 				8BC86C912B86141D00FE5B59 /* UIViewControllerExt.swift in Sources */,
 				8BC86D0F2B88716700FE5B59 /* WorkoutExerciseTableViewCell.swift in Sources */,
+				8BC86D492B8CE53200FE5B59 /* User.swift in Sources */,
 				8BC86C5C2B85D34500FE5B59 /* PresentationAssembly.swift in Sources */,
+				8B7BD43A2B9B17A3004B97CE /* ChooseGoalView.swift in Sources */,
 				8BC86D092B886CC100FE5B59 /* ConfigureWorkoutViewController.swift in Sources */,
 				8BC86CEC2B87369D00FE5B59 /* TimerLabelView.swift in Sources */,
 				8BC86CE02B870E0200FE5B59 /* HomeView.swift in Sources */,
+				8BC86D342B8C9A3200FE5B59 /* LoadingFooterView.swift in Sources */,
 				8BC86C8F2B86141D00FE5B59 /* UIViewExt.swift in Sources */,
 				8BC86C8C2B86141D00FE5B59 /* CGFloatExt.swift in Sources */,
 				8BC86C992B86141D00FE5B59 /* UILabelExt.swift in Sources */,
@@ -873,23 +1036,32 @@
 				8BC86CA42B86239000FE5B59 /* NetworkService.swift in Sources */,
 				8BC86CD22B86276A00FE5B59 /* HomeViewController.swift in Sources */,
 				8BC86C942B86141D00FE5B59 /* UITableView+Extensions.swift in Sources */,
+				8B7BD4372B9B172A004B97CE /* ChooseGoalLevelViewController.swift in Sources */,
 				8BC86CE82B87142B00FE5B59 /* HomePresenter.swift in Sources */,
 				8BC86D132B88752600FE5B59 /* ConfigureWorkoutModels.swift in Sources */,
+				8BC86D542B8DC89E00FE5B59 /* LocalNotifications.swift in Sources */,
+				8B7BD4402B9B3B09004B97CE /* ChooseGoalSettingsButtonView.swift in Sources */,
 				8BC86CC72B86264C00FE5B59 /* CustomTabItem.swift in Sources */,
 				8BC86D1A2B89F71900FE5B59 /* PlayWorkoutPresenter.swift in Sources */,
 				8BC86CC82B86264C00FE5B59 /* CustomItemView.swift in Sources */,
+				8BC86D502B8DA9AB00FE5B59 /* Mocks.swift in Sources */,
 				8BC86D062B88559000FE5B59 /* SettingsPresenter.swift in Sources */,
 				8BC86CB52B8624DD00FE5B59 /* SavePushTokenParser.swift in Sources */,
 				8BC86CD72B864DEB00FE5B59 /* RootAssembly.swift in Sources */,
 				8BC86CEE2B87394F00FE5B59 /* TimerView.swift in Sources */,
+				8BC86D8B2B8E3DB500FE5B59 /* Workout.swift in Sources */,
 				8BC86D0D2B886E6900FE5B59 /* ConfigureWorkoutHeaderView.swift in Sources */,
+				8BC86D2C2B8B6F4900FE5B59 /* SkillRegistrationPresenter.swift in Sources */,
+				8B7BD43C2B9B2291004B97CE /* ChooseGoalModel.swift in Sources */,
 				8BC86C892B86141D00FE5B59 /* AdaptedConstraint.swift in Sources */,
 				8BC86D222B8A3DE100FE5B59 /* PlayWorkoutModels.swift in Sources */,
 				8BC86CFB2B8821D900FE5B59 /* WorkoutModels.swift in Sources */,
 				8BC86CBB2B86251A00FE5B59 /* ApiConfiguration.swift in Sources */,
+				8BC86D2A2B8B6B0000FE5B59 /* Constants.swift in Sources */,
 				8BC86C252B85D0F400FE5B59 /* SceneDelegate.swift in Sources */,
 				8BC86CB62B8624DD00FE5B59 /* SignInParser.swift in Sources */,
 				8BC86CE62B87133E00FE5B59 /* HomeModels.swift in Sources */,
+				8BC86D322B8BE04E00FE5B59 /* StringExt.swift in Sources */,
 				8BC86CB72B8624DD00FE5B59 /* SucceedParser.swift in Sources */,
 				8BC86D012B883D1A00FE5B59 /* SettingsModels.swift in Sources */,
 				8BC86CBF2B8625A900FE5B59 /* SecureStorage.swift in Sources */,
@@ -897,11 +1069,15 @@
 				8BC86CF72B881F0A00FE5B59 /* WorkoutView.swift in Sources */,
 				8BC86CAF2B8624C200FE5B59 /* ConfigFactory.swift in Sources */,
 				8BC86C692B8613FF00FE5B59 /* EnterCollectionViewCell.swift in Sources */,
+				8BC86D472B8CE4CC00FE5B59 /* CoreDataStack.swift in Sources */,
 				8BC86D0B2B886DA600FE5B59 /* ConfigureWorkoutView.swift in Sources */,
+				8BC86D4D2B8CEA2100FE5B59 /* DatabaseService.swift in Sources */,
+				8BC86DD62B92FB7D00FE5B59 /* WorkoutHistory.swift in Sources */,
 				8BC86C682B8613FF00FE5B59 /* EnterView.swift in Sources */,
 				8BC86D162B89C64200FE5B59 /* PlayWorkoutViewController.swift in Sources */,
 				8BC86D182B89D18F00FE5B59 /* PlayWorkoutView.swift in Sources */,
 				8BC86CBD2B86257000FE5B59 /* AppInfoService.swift in Sources */,
+				8BC86D8E2B8E479000FE5B59 /* AskChangesViewController.swift in Sources */,
 				8BC86D1C2B8A05CA00FE5B59 /* PlayWorkoutBottomView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1076,13 +1252,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SoccerWorkout/SoccerWorkout.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 56MJXT6S6M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoccerWorkout/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "BNO - Sport way";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1093,11 +1269,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.SoccerWorkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Soccer_Store_PP;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1122,6 +1297,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 56MJXT6S6M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoccerWorkout/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "BNO - Sport way";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1132,7 +1308,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.SoccerWorkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1267,6 +1443,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8BC86D3C2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8BC86D3D2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodel */,
+			);
+			currentVersion = 8BC86D3D2B8CE4B200FE5B59 /*  SoccerWorkout.xcdatamodel */;
+			path = " SoccerWorkout.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8BC86C172B85D0F400FE5B59 /* Project object */;
 }

@@ -9,10 +9,18 @@ import UIKit
 
 class WorkoutView: UIView {
     
+    private enum Constants {
+        static let emptyHistoryTitle = "You have no entries yet\n"
+        static let emptyHistorySubtitle = "When you finish or skip a workout, a note about no will appear here"
+    }
+    
+    private let footerLoader = LoadingFooterView()
+    
     private let stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .horizontal
         sv.spacing = 4
+        sv.isHidden = true
         return sv
     }()
     
@@ -39,13 +47,45 @@ class WorkoutView: UIView {
     
     let tableView: UITableView = {
         let tbl = UITableView()
+        tbl.registerCell(reusable: HistoryTableViewCell.self)
         tbl.registerCell(reusable: WorkoutTableViewCell.self)
         tbl.registerFooterHeader(reusable: WorkoutSectionHeaderView.self)
         tbl.sectionHeaderHeight = UITableView.automaticDimension
         tbl.backgroundColor = .AppCollors.background
-        tbl.allowsSelection = false
+        tbl.showsVerticalScrollIndicator = false
         tbl.contentInset.bottom = 100
+        tbl.separatorStyle = .none
         return tbl
+    }()
+    
+    let emptyMessage: UILabel = {
+        let lbl = UILabel()
+        
+        let style = NSMutableParagraphStyle()
+        style.alignment = NSTextAlignment.center
+        style.paragraphSpacingBefore = 8
+        let titleAttributes = [
+            .font: UIFont(font: .PoppinsMedium, size: 18),
+            .foregroundColor: UIColor.white,
+            .paragraphStyle: style
+        ] as [NSAttributedString.Key : Any]
+        
+        let subtitleAttributes = [
+            .font: UIFont(font: .PoppinsMedium, size: 14),
+            .foregroundColor: UIColor.AppCollors.defaultGray,
+            .paragraphStyle: style
+        ] as [NSAttributedString.Key : Any]
+        
+        let titleAttributedStringComponents = [
+            NSAttributedString(string: Constants.emptyHistoryTitle,
+                                     attributes: titleAttributes),
+            NSAttributedString(string: Constants.emptyHistorySubtitle,
+                                     attributes: subtitleAttributes)
+        ] as [AttributedStringComponent]
+        lbl.attributedText = NSAttributedString(from: titleAttributedStringComponents, defaultAttributes: titleAttributes)
+        lbl.isHidden = true
+        lbl.numberOfLines = 0
+        return lbl
     }()
 
     override init(frame: CGRect) {
@@ -55,6 +95,16 @@ class WorkoutView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showLoader(toggle: Bool) {
+        if toggle {
+            tableView.setAndLayoutTableFooterView(footer: footerLoader)
+            footerLoader.showLoading()
+        } else {
+            footerLoader.stopLoading()
+            tableView.tableFooterView = nil
+        }
     }
     
     func configureView(for viewState: WorkoutState) {
@@ -87,11 +137,23 @@ class WorkoutView: UIView {
         historyButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 25).isActive = true
+        tableView.topAnchor.constraint(equalTo: tableView.superview!.safeTopAnchor, constant: 16).isActive = true
+//        tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 25).isActive = true
         tableView.leftAnchor.constraint(equalTo: tableView.superview!.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: tableView.superview!.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: tableView.superview!.bottomAnchor).isActive = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.addSubview(emptyMessage)
+        emptyMessage.centerYAnchor.constraint(equalTo: emptyMessage.superview!.centerYAnchor, constant: -50).isActive = true
+        emptyMessage.centerXAnchor.constraint(equalTo: emptyMessage.superview!.centerXAnchor).isActive = true
+        emptyMessage.leftAnchor.constraint(equalTo: emptyMessage.superview!.leftAnchor, constant: 80).isActive = true
+        emptyMessage.rightAnchor.constraint(equalTo: emptyMessage.superview!.rightAnchor, constant: -80).isActive = true
+        emptyMessage.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func updateUserStatus(_ skill: Skill, points: Int) {
+        statusView.setupUserSkill(skill: skill, points: points)
     }
     
     func addStatus(to navBar: UINavigationBar?) {

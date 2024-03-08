@@ -13,6 +13,9 @@ class PlayWorkoutViewController: UIViewController {
     private let presenter: IPlayWorkoutPresenter
     private let presentationAssemly: IPresentationAssembly
     private var datasource: [ExerciseModel] = []
+    var trainingTime: String {
+        return contentView.trainingTime
+    }
     
     init(presenter: IPlayWorkoutPresenter, presentationAssemly: IPresentationAssembly) {
         self.presenter = presenter
@@ -32,35 +35,66 @@ class PlayWorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.addStatus(to: navigationController?.navigationBar)
+        contentView.setupUserSkill(presenter.user.level, points: presenter.user.userPoints)
         contentView.tableView.dataSource = self
         datasource = presenter.getExcercise()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.startExercise()
+        playButtonTapped()
+    }
+    
     @objc 
     func completeExcersiceTapped() {
-        presenter.completeExercise()
+        presenter.startExercise()
     }
     
     @objc
     func playButtonTapped() {
-        dismiss(animated: true)
+        presenter.isTimerPlay = !presenter.isTimerPlay
+        contentView.playOrStopTimer(play: presenter.isTimerPlay)
     }
 
 }
 
 // MARK: - View
 extension PlayWorkoutViewController: IPlayWorkoutView {
-    func setupActiveDataSource(exersice: [ExerciseModel]) {
-        self.datasource = exersice
+    
+    func playVideo(url: URL?) {
+        contentView.configureVideoPlayer(with: url)
+    }
+    
+    func setupActiveDataSource(exersice: [ExerciseModel], numberOfActiveEx: String) {
+        contentView.showActiveNumberExcercise(number: numberOfActiveEx)
+        datasource = exersice
         contentView.tableView.reloadData()
     }
     
     func goToSessionFinishedScreen(info: [FinishedResultstTypes]) {
+        contentView.playOrStopTimer(play: false)
         contentView.showFinishedView(info: info)
     }
     
     func goHomeScreen() {
         dismiss(animated: true)
+    }
+    
+    func stopTimer() {
+        contentView.playOrStopTimer(play: false)
+    }
+    
+    func setupImage(imageURL: String) {
+        contentView.setupImage(imageURL: imageURL)
+    }
+    
+    func showSendingLoader(togle: Bool) {
+        contentView.botttomView.completeButton.showLoader(toggle: togle)
+    }
+    func showError(message: String) {
+        displayMsg(title: nil, msg: message)
+        contentView.botttomView.completeButton.setTitle("Try again", for: .normal)
     }
 }
 
