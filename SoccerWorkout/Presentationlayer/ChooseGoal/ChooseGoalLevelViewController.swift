@@ -28,7 +28,12 @@ class ChooseGoalLevelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if case .edit(let level, let goal, let time) = viewState,
+           let goalUn = goal,
+           let timeUn = time {
+            presenter.saveGoalLevel(goal: goalUn)
+            presenter.saveGoalTime(month: timeUn)
+        }
     }
     
     @objc
@@ -69,8 +74,8 @@ class ChooseGoalLevelViewController: UIViewController {
     
     @objc
     func dontWantTapped() {
-        if case .setup = viewState {
-            goToTabBar()
+        if case .setup(let authDTO) = viewState {
+            presenter.continueTapped(authDTO: authDTO)
         } else {
             dismiss(animated: true)
         }
@@ -78,13 +83,26 @@ class ChooseGoalLevelViewController: UIViewController {
     
     @objc
     func continueTapped() {
-        presenter.continueTapped()
+        if case .setup(let authDTO) = viewState {
+            presenter.continueTapped(authDTO: authDTO)
+        } else {
+            presenter.updateUserModel()
+            dismiss(animated: true)
+        }
     }
     
 }
 
 // MARK: - View
 extension ChooseGoalLevelViewController: IChooseGoalView {
+    
+    func showLoaderOnButton(isLoading: Bool) {
+        contentView.continueButton.showLoader(toggle: isLoading)
+    }
+    
+    func showError(message: String) {
+        displayMsg(title: nil, msg: message)
+    }
   
     func updateContinueButtonState(isDissabled: Bool) {
         contentView.continueButton.changeGradientButtonState(isActive: !isDissabled)

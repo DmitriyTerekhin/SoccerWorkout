@@ -70,7 +70,10 @@ extension ChooseSkillViewController: ISkillRegistrationView {
         displayMsg(title: nil, msg: message)
     }
     
-    func goToChooseGoalScreen(level: Skill) {
-        navigationController?.pushViewController(presentationAssembly.chooseGoalScreen(viewState: .setup(currentSkill: level)), animated: true)
+    func goToChooseGoalScreen(authDTO: AuthDTO) {
+        navigationController?.pushViewController(
+            presentationAssembly.chooseGoalScreen(viewState: .setup(authDTO: authDTO)),
+            animated: true
+        )
     }
 }

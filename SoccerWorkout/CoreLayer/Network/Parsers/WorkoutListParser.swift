@@ -15,7 +15,7 @@ class WorkoutListParser: IParser {
     
     func parse(json: JSON) -> Model? {
         return json.arrayValue.map { workoutJSON in
-            let exercisesLevel0 = workoutJSON["exercises"]["level0"].arrayValue.map { exerciseJSON in
+            let exercisesLevel0 = workoutJSON["exercises"]["level1"].arrayValue.map { exerciseJSON in
                 return ExerciseDTO(id: exerciseJSON["id"].stringValue,
                                    name: exerciseJSON["name"].stringValue,
                                    approach: exerciseJSON["approach"].intValue,
@@ -25,7 +25,7 @@ class WorkoutListParser: IParser {
                                    videoLink: ApiConstants.URL.base + "/" + exerciseJSON["videoLink"].stringValue
                 )
             }
-            let exercisesLevel1 = workoutJSON["exercises"]["level1"].arrayValue.map { exerciseJSON in
+            let exercisesLevel1 = workoutJSON["exercises"]["level2"].arrayValue.map { exerciseJSON in
                 return ExerciseDTO(id: exerciseJSON["id"].stringValue,
                                    name: exerciseJSON["name"].stringValue,
                                    approach: exerciseJSON["approach"].intValue,
@@ -35,7 +35,7 @@ class WorkoutListParser: IParser {
                                    videoLink: ApiConstants.URL.base + "/" + exerciseJSON["videoLink"].stringValue
                 )
             }
-            let exercisesLevel2 = workoutJSON["exercises"]["level2"].arrayValue.map { exerciseJSON in
+            let exercisesLevel2 = workoutJSON["exercises"]["level3"].arrayValue.map { exerciseJSON in
                 return ExerciseDTO(id: exerciseJSON["id"].stringValue,
                                    name: exerciseJSON["name"].stringValue,
                                    approach: exerciseJSON["approach"].intValue,

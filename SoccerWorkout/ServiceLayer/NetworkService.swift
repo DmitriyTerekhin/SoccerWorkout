@@ -19,9 +19,7 @@ protocol INetworkService {
                            workoutId: Int,
                            workoutDate: String,
                            completionHandler: @escaping (Result<Int, NetworkError>) -> Void)
-    func createUser(userId: String,
-                    level: Int,
-                    pushToken: String?,
+    func createUser(authDTO: AuthDTO,
                     completion: @escaping(Result<AuthDTO, NetworkError>) -> Void)
     func loadAvailableWorkouts(userId: String, completion: @escaping(Result<[WorkoutDTO], NetworkError>) -> Void)
 }
@@ -45,15 +43,9 @@ class NetworkService: INetworkService {
                            completionHandler: completion)
     }
     
-    func createUser(userId: String,
-                    level: Int,
-                    pushToken: String?,
+    func createUser(authDTO: AuthDTO,
                     completion: @escaping(Result<AuthDTO, NetworkError>) -> Void) {
-        requestSender.send(requestConfig: ConfigFactory.createUser(authDTO:
-                                                                    AuthDTO(level: level,
-                                                                            userId: userId,
-                                                                            token: pushToken
-                                                                           )
+        requestSender.send(requestConfig: ConfigFactory.createUser(authDTO: authDTO
                                                                   ), completionHandler: completion)
     }
     

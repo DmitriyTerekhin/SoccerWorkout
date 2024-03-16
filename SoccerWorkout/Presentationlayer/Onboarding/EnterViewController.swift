@@ -1,9 +1,4 @@
 //
-//  OnboardingViewController.swift
-//  LogoGenerator
-//
-//  Created by Дмитрий Терехин on 29.07.2023.
-//
 
 import UIKit
 import AuthenticationServices
@@ -70,6 +65,7 @@ class EnterViewController: UIViewController {
     
     @objc
     func signInWithAppleTapped() {
+//        self.goToChooseSkill(userId: "dfsf444") // For fast enter on simulator
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.email]
@@ -79,28 +75,6 @@ class EnterViewController: UIViewController {
         controller.presentationContextProvider = self
         controller.performRequests()
     }
-    
-//    private func makeAppleAuth(code: String) {
-//        networkService.makeAuth(token: code) { [weak self] result in
-//              DispatchQueue.main.async {
-//                  guard let strongSelf = self else { return }
-//                  switch result {
-//                  case .success(let authModel):
-//                      print(authModel)
-//                      guard authModel.accessToken.count > 3 else { return }
-//                      strongSelf.userInfoService.saveAppleToken(token: authModel.accessToken)
-//                      strongSelf.goToTabBar()
-//                  case .failure(let error):
-//                      print(error.localizedDescription)
-//                  }
-//              }
-//          }
-//      }
-    
-//    @objc
-//    func goToTabBar() {
-//        presentationAssemmbly.changeRootViewController(on: presentationAssemmbly.tabBarViewController())
-//    }
     
     private func goToChooseSkill(userId: String) {
         navigationController?.pushViewController(presentationAssemmbly.chooseSkillScreen(userId: userId), animated: true)

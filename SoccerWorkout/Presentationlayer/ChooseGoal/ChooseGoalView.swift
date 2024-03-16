@@ -112,9 +112,13 @@ class ChooseGoalView: ChooseSkillView {
     
     func configureView(viewState: ChooseGoalViewState) {
         switch viewState {
-        case .setup(let level):
-            skillImageView.image = UIImage(named: level.imageName)
-        case .edit(let level):
+        case .setup(let authDTO):
+            skillImageView.image = UIImage(named: Skill(level: authDTO.level)?.imageName ?? "")
+        case .edit(let level, let goal, let time):
+            if let goalUn = goal, let timeUn = time {
+                timeTapped(time: timeUn)
+                skillTapped(skill: goalUn)
+            }
             continueButton.setTitle("Save Goal", for: .normal)
             skillImageView.image = UIImage(named: level.imageName)
         }

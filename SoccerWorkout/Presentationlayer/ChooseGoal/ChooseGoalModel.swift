@@ -20,6 +20,6 @@ enum GoalTime: Int, CaseIterable {
 }
 
 enum ChooseGoalViewState {
-    case setup(currentSkill: Skill)
-    case edit(currentSkill: Skill)
+    case setup(authDTO: AuthDTO)
+    case edit(currentLevel: Skill, currentGoal: Skill?, goalTime: GoalTime?)
 }

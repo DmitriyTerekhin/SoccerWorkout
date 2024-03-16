@@ -12,7 +12,7 @@ enum WorkoutEndPoint: ApiConfiguration {
     
     case savePushToken(token: String)
     case signInWithApple(token: String)
-    case createUser(userId: String, level: Int, pushToken: String)
+    case createUser(userId: String, level: Int, pushToken: String, goal: Int?)
     case getAllWorkouts
     case getHistory(userId: String)
     case delete(token: String)
@@ -63,11 +63,12 @@ enum WorkoutEndPoint: ApiConfiguration {
                 "workout_date": date,
                 "workout_details": ""
             ]
-        case .createUser(let userId, let level, let pushToken):
+        case .createUser(let userId, let level, let pushToken, let goal):
             return [
                 "id": userId,
                 "level": level,
-                "token": pushToken
+                "token": pushToken,
+                "goal": goal ?? 0
             ]
         default:
             return [:]

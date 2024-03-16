@@ -20,8 +20,16 @@ struct AuthModel {
     let tokenType: String
 }
 
-struct AuthDTO {
+class AuthDTO {
     var level: Int
     var userId: String
     var token: String?
+    var goal: Int?
+    
+    init(level: Int, userId: String, token: String? = nil, goal: Int? = nil) {
+        self.level = level
+        self.userId = userId
+        self.token = token
+        self.goal = goal
+    }
 }

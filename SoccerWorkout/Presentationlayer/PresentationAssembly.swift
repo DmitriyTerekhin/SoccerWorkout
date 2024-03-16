@@ -81,7 +81,9 @@ class PresentationAssembly: IPresentationAssembly {
     
     func chooseGoalScreen(viewState: ChooseGoalViewState) -> ChooseGoalLevelViewController {
         return ChooseGoalLevelViewController(viewState: viewState,
-                                             presenter: ChooseGoalPresenter(),
+                                             presenter: ChooseGoalPresenter(networkService: serviceAssembly.networkService,
+                                                                            userInfoService: serviceAssembly.userInfoService,
+                                                                            databaseService: serviceAssembly.databaseService),
                                              presentationAssembly: self)
     }
     

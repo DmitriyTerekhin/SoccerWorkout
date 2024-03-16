@@ -17,7 +17,8 @@ struct ConfigFactory {
     static func createUser(authDTO: AuthDTO) -> ApiRequestConfig<CreateUserParser> {
         return ApiRequestConfig(endPoint: WorkoutEndPoint.createUser(userId: authDTO.userId,
                                                                      level: authDTO.level,
-                                                                     pushToken: authDTO.token ?? ""),
+                                                                     pushToken: authDTO.token ?? "",
+                                                                     goal: authDTO.goal),
                                 parser: CreateUserParser())
     }
     static func loadWorkoutsList(userId: String) -> ApiRequestConfig<WorkoutListParser> {

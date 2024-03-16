@@ -18,11 +18,21 @@ public final class UserDB: NSManagedObject {
         into context: NSManagedObjectContext,
         model: UserModel
     ) -> UserDB {
-        let userDB: UserDB = context.insertObject()
+        guard let userDB: UserDB = .findOrFetch(in: context, matching: NSPredicate(format: "userId == %i", model.userId))
+        else {
+            let userDB: UserDB = context.insertObject()
+            userDB.level = Int16(model.level.level)
+            userDB.points = Int64(model.userPoints)
+            userDB.goalLevel = Int16(model.goalLevel?.level ?? -1)
+            userDB.goalTime = Int16(model.goalTime?.rawValue ?? -1)
+            userDB.userId = model.userId
+            context.set(userDB, forSingleObjectCacheKey: UserDB.cacheKey)
+            return userDB
+        }
         userDB.level = Int16(model.level.level)
         userDB.points = Int64(model.userPoints)
-        userDB.userId = model.userId
-        context.set(userDB, forSingleObjectCacheKey: UserDB.cacheKey)
+        userDB.goalLevel = Int16(model.goalLevel?.level ?? -1)
+        userDB.goalTime = Int16(model.goalTime?.rawValue ?? -1)
         return userDB
     }
     

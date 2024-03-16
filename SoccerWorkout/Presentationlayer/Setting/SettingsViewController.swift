@@ -58,7 +58,13 @@ class SettingsViewController: UIViewController {
     
     @objc
     func changeGoalLevelTapped() {
-        let viewController = presentationAssembly.chooseGoalScreen(viewState: .edit(currentSkill: presenter.userModel.level))
+        let viewController = presentationAssembly.chooseGoalScreen(
+            viewState: .edit(
+                currentLevel: presenter.userModel.level,
+                currentGoal: presenter.userModel.goalLevel,
+                goalTime: presenter.userModel.goalTime
+            )
+        )
         viewController.modalPresentationStyle = .overFullScreen
         present(viewController, animated: true)
     }

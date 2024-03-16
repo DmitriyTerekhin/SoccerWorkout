@@ -11,9 +11,9 @@ protocol ISkillRegistrationPresenter: AnyObject {
 
 protocol ISkillRegistrationView: AnyObject {
     func showError(message: String)
-    func goToChooseGoalScreen(level: Skill)
-    func makeContinueButtonActive()
     func showLoaderOnButton(isLoading: Bool)
+    func goToChooseGoalScreen(authDTO: AuthDTO)
+    func makeContinueButtonActive()
 }
 
 class SkillRegistrationPresenter: ISkillRegistrationPresenter {
@@ -47,27 +47,12 @@ class SkillRegistrationPresenter: ISkillRegistrationPresenter {
     
     func continueTapped() {
         guard let skill = skill else { return }
-        view.showLoaderOnButton(isLoading: true)
-        networkService.createUser(userId: userId,
-                                  level: skill.level,
-                                  pushToken: Messaging.messaging().fcmToken) { [weak self] result in
-            guard let strongSelf = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let authDTO):
-                    strongSelf.userInfoService.changeUserInAppValue(isUserInApp: true)
-                    strongSelf.userInfoService.saveUserId(id: authDTO.userId)
-                    strongSelf.userInfoService.saveUserSkill(skill: Skill(level: authDTO.level)!)
-                    strongSelf.view.showLoaderOnButton(isLoading: true)
-                    strongSelf.databaseService.saveUserModel(model: UserModel(level: Skill(level: authDTO.level)!,
-                                                                              userId: authDTO.userId,
-                                                                              userPoints: 0)) { _ in
-                        strongSelf.view.goToChooseGoalScreen(level: skill)
-                    }
-                case .failure(let failure):
-                    strongSelf.view.showError(message: failure.textToDisplay)
-                }
-            }
-        }
+        view.goToChooseGoalScreen(authDTO:
+                                    AuthDTO(
+                                        level: skill.level,
+                                        userId: userId,
+                                        token: Messaging.messaging().fcmToken
+                                    )
+        )
     }
 }
